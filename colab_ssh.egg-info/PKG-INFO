@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: colab-ssh
+Version: 0.0.4
+Summary: Google colab SSH connector
+Home-page: https://github.com/WassimBenzarti/colab-ssh-connector.git
+Author: Wassim Benzarti
+Author-email: m.wassim.benzarti@gmail.com
+License: UNKNOWN
+Description: # Google CoLab SSH
+        Connect to Google colab via ssh easily
+        
+        ```python
+        
+        ```
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
