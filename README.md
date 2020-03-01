@@ -18,7 +18,7 @@ pip install colab_ssh --upgrade --user
 # Install colab_ssh
 !pip install colab_ssh --upgrade
 
-import colab_ssh import launch_ssh
+import colab_ssh import launch_ssh, git_init
 launch_ssh(ngrokToken,password)
 
 # Optional: if you want to clone a github repository
