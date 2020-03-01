@@ -24,5 +24,5 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        chmod +x ./publish.sh
+        chmod +x ./publish.sh ./build.sh
         ./publish.sh
