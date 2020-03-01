@@ -27,7 +27,7 @@ git_init(githubUrl)
 
 - `password` is your ssh password that you want to choose
 - `ngrokToken` is your ngrok token that you can get from [here](https://dashboard.ngrok.com/auth)
-- `githubUrl` is your github clone url (usually ends with `.git`)
+- `githubUrl` is your github **HTTP** clone url (usually ends with `.git`)
 
 ### Avoiding passwords
 Instead of setting a password, you can access the SSH tunnel using your own pair of keys.
