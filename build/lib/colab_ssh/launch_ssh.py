@@ -7,17 +7,18 @@ import time
 
 
 
-def launch_ssh(password, token):
+def launch_ssh(token, password=""):
 
   os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
   #Download ngrok
   run_command("wget -q -nc https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip")
   run_command("unzip -qq -n ngrok-stable-linux-amd64.zip")
-  run_command("apt-get install -qq -o=Dpkg::Use-Pty=0 openssh-server pwgen")
+  run_command("apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen")
   run_with_pipe("echo root:{} | sudo chpasswd".format(password))
   run_command("mkdir -p /var/run/sshd")
   os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
-  os.system('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
+  if password:
+    os.system('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
   os.system('echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc')
   os.system('echo "export LD_LIBRARY_PATH" >> /root/.bashrc')
   os.system('/usr/sbin/sshd -D &')
