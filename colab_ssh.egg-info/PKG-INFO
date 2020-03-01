@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: colab-ssh
-Version: 0.1.1
+Version: 0.2.2
 Summary: Google colab SSH connector
 Home-page: https://github.com/WassimBenzarti/colab-ssh-connector.git
 Author: Wassim Benzarti
