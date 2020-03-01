@@ -29,9 +29,6 @@ def launch_ssh(token, password=""):
   Popen(shlex.split('./ngrok tcp --authtoken {} 22'.format(token)), stdout=PIPE,stderr=PIPE,stdin=PIPE)
   time.sleep(4)
 
-  #Print root password
-  print("Root password: {}".format(password))
-
   #Get public address
   info = run_with_pipe('''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"''')
   
