@@ -7,7 +7,7 @@ def init_git(repositoryUrl, branch="master", github_personal_token=""):
 
     # TODO: Create the folder if it doesn't exist
     os.system("mkdir -p ~/.ssh && curl -L -f {} {}/{}/.colab_ssh/authorized_keys >> ~/.ssh/authorized_keys".format(
-        ("-H 'Authorization: token "+github_personal_token) if github_personal_token else "",
+        ("-H 'Authorization: token {}'".format(github_personal_token)) if github_personal_token else "",
         repositoryUrl.rstrip(".git").replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
