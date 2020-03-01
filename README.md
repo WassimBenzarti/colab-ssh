@@ -14,7 +14,7 @@ pip install colab_ssh --upgrade --user
 
 ## Getting started
 1. Open Google Colab and run this code in one of the code cells
-```python
+```jupyter
 # Install colab_ssh
 !pip install colab_ssh --upgrade
 
