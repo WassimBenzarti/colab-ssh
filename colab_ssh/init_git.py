@@ -8,6 +8,7 @@ def parse_folder_name(array):
     sys.path.insert(0, "./"+re.search("'(.*?)'", array[0]).groups(1)[0])
 
 def init_git(repositoryUrl, branch="master", personal_token=""):
+    # Clone the repository then add the folder to the sys.path
     _run_command("git clone {}".format(
             repositoryUrl.replace("github.com", personal_token+"@github.com")if personal_token else repositoryUrl) ,
             callback=parse_folder_name
