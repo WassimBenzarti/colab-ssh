@@ -6,7 +6,6 @@ import os
 import time
 
 
-
 def launch_ssh(token, password=""):
 
   os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
@@ -14,7 +13,7 @@ def launch_ssh(token, password=""):
   run_command("wget -q -nc https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip")
   run_command("unzip -qq -n ngrok-stable-linux-amd64.zip")
   run_command("apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen")
-  run_with_pipe("echo root:{} | sudo chpasswd".format(password))
+  run_with_pipe("echo root:{} | chpasswd".format(password))
   run_command("mkdir -p /var/run/sshd")
   os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
   if password:
