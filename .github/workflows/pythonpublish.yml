@@ -18,11 +18,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine
+        pip3 install setuptools wheel twine
+        python --version
+        pip --version
+        pip3 --version
+        cat ./colab_ssh/init_git.py
     - name: Build and publish
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       continue-on-error: true
       run: |
-        bash publish.sh
+        chmod +x ./publish.sh ./build.sh
+        ./publish.sh
