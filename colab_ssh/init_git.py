@@ -12,10 +12,9 @@ def init_git(repositoryUrl, branch="master", personal_token=""):
             repositoryUrl.replace("github.com", personal_token+"@github.com")if personal_token else repositoryUrl) ,
             callback=parse_folder_name
     )
+
+    # Checkout the branch
     _run_command("git checkout {}".format(branch))
-
-
-    
 
     os.system("mkdir -p ~/.ssh && curl -L -f {} {}/{}/.colab_ssh/authorized_keys >> ~/.ssh/authorized_keys".format(
         ("-H 'Authorization: token {}'".format(personal_token)) if personal_token else "",

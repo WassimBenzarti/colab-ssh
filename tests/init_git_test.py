@@ -12,7 +12,7 @@ class TestGit(unittest.TestCase):
             
         init_git("https://github.com/WassimBenzarti/colab-ssh-connector.git")
 
-        self.assertTrue(invoked > 0,"invoked < 0")
+        self.assertEqual(invoked,1)
 
 
 if __name__ == '__main__':
