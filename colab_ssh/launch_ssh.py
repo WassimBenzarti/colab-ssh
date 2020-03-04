@@ -4,9 +4,10 @@ import shlex
 from colab_ssh._command import run_command, run_with_pipe
 import os
 import time
+import requests
 
 
-def launch_ssh(token, password=""):
+def launch_ssh(token, password="", publish=True):
 
   os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
   #Download ngrok
@@ -31,8 +32,18 @@ def launch_ssh(token, password=""):
   #Get public address
   info = run_with_pipe('''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"''')
   
+  if publish and info and info[0]:
+    publish_host(info[0].decode().strip())
+
   print("Successfully running", info)
 
   return info
   
 
+def publish_host(address):
+  url = 'https://api.jsonbin.io/b/5e5faa9b763fa966d40ed31b'
+  headers = {'Content-Type': 'application/json'}
+  data = {"host": address}
+
+  req = requests.put(url, json=data, headers=headers)
+  print("Published the host, See the vscode extension: ",req.text)
