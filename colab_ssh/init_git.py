@@ -19,7 +19,7 @@ def init_git(repositoryUrl,
     )
 
     # Checkout the branch
-    os.system("cd "$(basename "$1" .git)" && git checkout {}".format(branch))
+    os.system('cd "$(basename {})" && git checkout {}'.format(repositoryUrl,branch))
 
     # Add the email and username
     if email: os.system('git config --global user.email "{}"'.format(email))
