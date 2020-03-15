@@ -54,7 +54,7 @@ def launch_ssh(token, password="", publish=True):
     print("Successfully running", "{}:{}".format(host,port))
     print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
     print('''
-      Host my-ngrok-configuration
+      Host google_colab_ssh
           HostName 0.ssh.ngrok.io
           User root
           Port {}

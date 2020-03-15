@@ -47,7 +47,7 @@ You need to follow these steps:
 Once you run the code in the **Getting Started** section you will notice a message like this
 ```
 ...
-Successfully running [b'tcp://0.tcp.ngrok.io:XXXX\n']
+Successfully running tcp://0.tcp.ngrok.io:XXXX
 ...
 ```
 - `XXXX` is the port provided by `ngrok`
