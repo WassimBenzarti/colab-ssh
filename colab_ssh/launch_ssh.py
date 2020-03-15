@@ -5,6 +5,7 @@ from colab_ssh._command import run_command, run_with_pipe
 import os
 import time
 import requests
+import re
 
 
 def launch_ssh(token, password="", publish=True):
@@ -45,7 +46,23 @@ def launch_ssh(token, password="", publish=True):
   if publish and info and info[0]:
     publish_host(info[0].decode().strip())
 
-  print("Successfully running", info)
+  if info[0]:
+    # Extract the host and port
+    host_and_port = re.match(r'.*://(.*):(\d+)\n', info[0].decode())
+    host = host_and_port.group(1)
+    port = host_and_port.group(2)
+    print("Successfully running", "{}:{}".format(host,port))
+    print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
+    print('''
+      Host my-ngrok-configuration
+          HostName 0.ssh.ngrok.io
+          User root
+          Port {}
+      ''', port)
+  else:
+    print("It looks like something went wrong, please try again.")
+
+  
 
   return info
   
@@ -56,4 +73,4 @@ def publish_host(address):
   data = {"host": address}
 
   req = requests.put(url, json=data, headers=headers)
-  print("Published the host, See the vscode extension: ",req.text)
+  # print("Published the host, See the vscode extension: ",req.text)
