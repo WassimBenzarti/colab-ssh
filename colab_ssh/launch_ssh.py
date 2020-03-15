@@ -58,7 +58,7 @@ def launch_ssh(token, password="", publish=True):
           HostName 0.ssh.ngrok.io
           User root
           Port {}
-      ''', port)
+      '''.format(port))
   else:
     print("It looks like something went wrong, please try again.")
 
