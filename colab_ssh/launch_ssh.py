@@ -9,12 +9,24 @@ import requests
 
 def launch_ssh(token, password="", publish=True):
 
+  # Ensure the ngrok auth token is not empty
+  if(not token):
+    raise "Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth"
+
+  # Kill any ngrok process if running
   os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
-  #Download ngrok
+
+  # Download ngrok
   run_command("wget -q -nc https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip")
   run_command("unzip -qq -n ngrok-stable-linux-amd64.zip")
+
+  # Install the openssh server
   os.system("apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null")
+
+  # Set the password
   run_with_pipe("echo root:{} | chpasswd".format(password))
+
+  # Configure the openSSH server
   run_command("mkdir -p /var/run/sshd")
   os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
   if password:
@@ -22,14 +34,12 @@ def launch_ssh(token, password="", publish=True):
   os.system('echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc')
   os.system('echo "export LD_LIBRARY_PATH" >> /root/.bashrc')
   os.system('/usr/sbin/sshd -D &')
-  print("Copy authtoken from https://dashboard.ngrok.com/auth")
 
-  #Create tunnel
-  #get_ipython().system_raw('./ngrok authtoken $authtoken && ./ngrok tcp 22 &')
+  # Create tunnel
   Popen(shlex.split('./ngrok tcp --authtoken {} 22'.format(token)), stdout=PIPE,stderr=PIPE,stdin=PIPE)
   time.sleep(4)
 
-  #Get public address
+  # Get public address
   info = run_with_pipe('''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"''')
   
   if publish and info and info[0]:
