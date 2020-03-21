@@ -28,7 +28,7 @@ def init_git(repositoryUrl,
 
     os.system("mkdir -p ~/.ssh && curl -L -f {} {}/{}/.colab_ssh/authorized_keys >> ~/.ssh/authorized_keys".format(
         ("-H 'Authorization: token {}'".format(personal_token)) if personal_token else "",
-        repositoryUrl.rstrip(".git").replace("github.com", "raw.githubusercontent.com"), 
+        repositoryUrl.split(".git")[0].replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
     print("Successfully cloned the repository")
