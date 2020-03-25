@@ -20,6 +20,12 @@ def init_git(repositoryUrl,
 
     # Checkout the branch
     os.system('cd "$(basename {} .git)" && git checkout {}'.format(repositoryUrl,branch))
+    
+    # Make sure that even if the repository is public, the personal token is still in the origin remote url
+    if personal_token:
+      os.system("git remote set-url origin {}".format(
+        repositoryUrl.replace("github.com", personal_token+"@github.com")
+      ))
 
     # Add the email and username
     if email: os.system('git config --global user.email "{}"'.format(email))
