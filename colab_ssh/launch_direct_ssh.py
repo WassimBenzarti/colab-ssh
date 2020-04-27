@@ -2,7 +2,7 @@ import os
 
 
 
-def launch_ssh_home(username, ip_address, port, 
+def launch_direct_ssh(username, ip_address, port, 
 		reverse_ports=["6022:127.0.0.1:22"], 
 		public_key_path="%USERPROFILE%/.ssh/id_rsa.pub"):
 	"""
