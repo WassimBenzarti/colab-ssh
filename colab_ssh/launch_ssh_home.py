@@ -2,7 +2,9 @@ import os
 
 
 
-def launch_ssh_home(username, ip_address, port, reverse_ports=["6022:127.0.0.1:22"]):
+def launch_ssh_home(username, ip_address, port, 
+		reverse_ports=["6022:127.0.0.1:22"], 
+		public_key_path="%USERPROFILE%/.ssh/id_rsa.pub"):
 	"""
 	Launches a direct ssh connection
 	! IMPORTANT ! This requires that you install openssh-server locally on your machine and
@@ -13,6 +15,7 @@ def launch_ssh_home(username, ip_address, port, reverse_ports=["6022:127.0.0.1:2
 		port: The port where openssh-server is listening
 		reverse_ports: This is used when you want to forward a port to your machine.
 			Use this format <remoteport>:127.0.0.1:<localport>
+		public_key_path: Public key path (Please change it to '~/.ssh/id_rsa.pub' if you are on linux)
 	"""
 	# Kill all ssh intances including the server
 	os.system("pkill -f ssh")
@@ -21,7 +24,7 @@ def launch_ssh_home(username, ip_address, port, reverse_ports=["6022:127.0.0.1:2
 	os.system("apt-get install -y autossh openssh-server")
 
 	# Get the public key from the client (the one with the ip_address)
-	os.system("scp Wassim@197.240.211.35:~/.ssh/id_rsa.pub ~/.ssh/authorized_keys")
+	os.system(f"scp -P {port} {username}@{ip_address}:{public_key_path} ~/.ssh/authorized_keys")
 
 	# Permit the root login
 	os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
