@@ -3,3 +3,4 @@
 /ngrok-stable-linux-amd64.zip
 /colab_ssh.egg-info
 /build
+__pycache__/
