@@ -1,7 +1,6 @@
 import os
 from subprocess import run, PIPE
 
-print("hello")
 def launch_direct_ssh(username, ip_address, port, 
     reverse_ports=["6022:127.0.0.1:22"], 
     public_key_path="%USERPROFILE%/.ssh/id_rsa.pub",
@@ -20,11 +19,11 @@ def launch_direct_ssh(username, ip_address, port,
   """
   def run_command(command, verbose=True):
     if verbose:
-      print("Running:", command)
+      print("EXECUTING:", command)
     process=run(command, stdout=PIPE, stderr=PIPE, shell=True)
     if verbose:
-      print(process.stdout) if process.stdout else ""
-      print(process.stderr) if process.stderr else ""
+      print("INFO:",process.stdout) if process.stdout else ""
+      print("ERROR:",process.stderr) if process.stderr else ""
 
   # Kill all ssh intances including the server
   run_command("pkill -f ssh")
@@ -46,7 +45,5 @@ def launch_direct_ssh(username, ip_address, port,
   reverse_tunnel_ports = " -R ".join(reverse_ports)
   if len(reverse_ports) >0:
     reverse_tunnel_ports = " -R "+reverse_tunnel_ports
-  verbosity=""
-  if verbose:
-    verbosity=" -vv "
-  run_command(f'autossh {verbosity} -o "StrictHostKeyChecking=no" -f -T -N {reverse_tunnel_ports} {username}@{ip_address} -p {port}')
+
+  run_command(f'autossh -o "StrictHostKeyChecking=no" -f -T -N {reverse_tunnel_ports} {username}@{ip_address} -p {port}')
