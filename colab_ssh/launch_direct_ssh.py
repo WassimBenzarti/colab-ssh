@@ -32,14 +32,14 @@ def launch_direct_ssh(username, ip_address, port,
   # Download autossh
   run_command("apt-get install -y autossh openssh-server")
 
+  # Get the public key from the client (the one with the ip_address)
+  run_command(f"scp -P {port} {username}@{ip_address}:{public_key_path} ~/.ssh/authorized_keys")
+
   # Permit the root login
   run_command("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
 
   # Launch the SSH Server
   run_command('mkdir -p /run/sshd && /usr/sbin/sshd')
-
-  # Get the public key from the client (the one with the ip_address)
-  run_command(f"scp -P {port} {username}@{ip_address}:{public_key_path} ~/.ssh/authorized_keys")
 
   # Launch the connection
   # Prepare the ports
