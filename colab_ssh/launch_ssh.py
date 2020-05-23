@@ -21,6 +21,7 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 
 	# Kill any ngrok process if running
 	os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
+
 	
 	# Download ngrok
 	run_command(
@@ -45,7 +46,7 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 
 	# Create tunnel
 	proc = Popen(shlex.split('./ngrok tcp --authtoken {} --region {} 22'.format(token, region)), stdout=PIPE)
-	proc.stdout.close()
+	
 
 	time.sleep(4)
 	# Get public address
@@ -68,16 +69,17 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 		port = host_and_port.group(2)
 		print("Successfully running", "{}:{}".format(host, port))
 		print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
-		print('''
+		print(f'''
 	  Host google_colab_ssh
-		  HostName 0.ssh.ngrok.io
+		  HostName {host}
 		  User root
-		  Port {}
-	  '''.format(port))
+		  Port {port}
+	  ''')
 	else:
+		print(proc.stdout.readlines())
 		raise Exception(
 			"It looks like something went wrong, please make sure your token is valid.")
-
+	proc.stdout.close()
 	return info
 
 
