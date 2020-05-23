@@ -9,12 +9,15 @@ import requests
 import re
 
 
-def launch_ssh(token, password="", publish=True, verbose=False):
+def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 
 	# Ensure the ngrok auth token is not empty
 	if(not token):
 		raise Exception(
 			"Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth")
+
+	if(not region):
+		raise Exception("Region is required. If you do want prefer the default value, don't set the 'region' parameter")
 
 	# Kill any ngrok process if running
 	os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
@@ -41,7 +44,7 @@ def launch_ssh(token, password="", publish=True, verbose=False):
 	os.system('/usr/sbin/sshd -D &')
 
 	# Create tunnel
-	proc = Popen(shlex.split('./ngrok tcp --authtoken {} 22'.format(token)), stdout=PIPE)
+	proc = Popen(shlex.split('./ngrok tcp --authtoken {} --region {} 22'.format(token, region)), stdout=PIPE)
 	proc.stdout.close()
 
 	time.sleep(4)
