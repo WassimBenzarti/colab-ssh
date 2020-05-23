@@ -30,14 +30,28 @@ pip install colab_ssh --upgrade --user
 ```
 
 ### Cloning a repository (Optional)
-You probably working on a Github
+If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
+This is why `init_git` is created.
+
+##### What `init_git` does:
+- Clones the repository
+- Uses your personal token (if you provided it) to setup the repository remote URL (this is useful so you don't have to worry about authentication during `git clone` or `git push` )
+- Checkout the branch of your preference
+- Sets up the `user.email` and `user.name` for you, in case you need to commit.
+
+#### Example:
+```python
+
+```
+
+
 
 ### Avoiding passwords (Optional)
 Instead of setting a password, you can access the SSH tunnel using your own pair of keys.
 
-> **IMPORTANT**: For this to work you need to setup your git repository by using the function `git_init()`
+> **IMPORTANT**: For this to work you need to setup your git repository by using the function `init_git()`
 
-**How it works ?** : We get your **public key** from the repository passed into the `git_init()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
+**How it works ?** : We get your **public key** from the repository passed into the `init_git()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
 
 You need to follow these steps:
 1. Create a pair of SSH key
@@ -78,8 +92,8 @@ This function accepts the following parameters
 |`region`|string|-|`us`|The region you want to setup for ngrok|
 |~~`publish`~~|-|-|-|Deprecated|
 
-### `git_init` function
-`git_init` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication using your github personal token.
+### `init_git` function
+`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication using your github personal token.
 
 This function accepts the following parameters
 |Parameter|Type|Required|Default value|Description|
