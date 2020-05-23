@@ -23,6 +23,8 @@ jobs:
         pip --version
         pip3 --version
         cat ./colab_ssh/init_git.py
+    - name: Run tests
+      run: python3 -m unittest discover tests "*_unittest.py"
     - name: Build and publish
       env:
         TWINE_USERNAME: __token__
