@@ -1,0 +1,23 @@
+name: Run tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.6'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run tests
+      run: python3 -m unittest discover tests "*_unittest.py"
+      env:
+        NGROK_TOKEN: ${{secrets.NGROK_TOKEN}} 
