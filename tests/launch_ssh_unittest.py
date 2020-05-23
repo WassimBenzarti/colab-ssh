@@ -23,3 +23,6 @@ class TestLaunchSSH(unittest.TestCase):
     def test_success(self):
         launch_ssh(NGROK_TOKEN, verbose=True)
 
+    def test_success_with_region(self):
+        launch_ssh(NGROK_TOKEN, verbose=True, region="eu")
+
