@@ -4,3 +4,6 @@
 /colab_ssh.egg-info
 /build
 __pycache__/
+
+.env*
+!.env.example
