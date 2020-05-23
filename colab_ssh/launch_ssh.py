@@ -8,11 +8,11 @@ import requests
 import re
 
 
-def launch_ssh(token, password="", publish=True):
+def launch_ssh(token, password="", publish=True, verbose=False):
 
   # Ensure the ngrok auth token is not empty
   if(not token):
-    raise "Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth"
+    raise Exception("Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth")
 
   # Kill any ngrok process if running
   os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
@@ -45,6 +45,10 @@ def launch_ssh(token, password="", publish=True):
   
   if publish and info and info[0]:
     publish_host(info[0].decode().strip())
+
+  if verbose:
+    more_info = run_with_pipe('''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin))"''')
+    print("DEBUG:", more_info)
 
   if info[0]:
     # Extract the host and port
