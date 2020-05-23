@@ -4,18 +4,12 @@
 ## What is Colab-ssh
 Colab-ssh is a light-weight library that enables you to connect to a Google Colab virtual machine using an SSH tunnel.
 
-> User interface is still required in order to create the Colab virtual machine
-
-## Installation
-To install Colab-ssh library, you need to run this command
-```bash
-pip install colab_ssh --upgrade --user
-```
+> You still need to open the Google Colab Notebook interface manually in order to setup this tool. Google Colab doesn't have an API yet to automatically run a notebook for you.
 
 ## Getting started
 1. Open Google Colab and run this code in one of the code cells
 ```jupyter
-# Install colab_ssh
+# Install colab_ssh on google colab
 !pip install colab_ssh --upgrade
 
 from colab_ssh import launch_ssh, init_git
@@ -24,17 +18,43 @@ launch_ssh(ngrokToken,password)
 # Optional: if you want to clone a github repository
 init_git(githubUrl)
 ```
-
-- `password` is your ssh password that you want to choose
 - `ngrokToken` is your ngrok token that you can get from [here](https://dashboard.ngrok.com/auth)
+- `password` is an optional parameter, this is your ssh password that you want to set.
 - `githubUrl` is your github **HTTPS** clone url (usually ends with `.git`)
+> Check all the parameters for the `launch_ssh` function in [this section](#API Reference)
 
-### Avoiding passwords
+### Installation (standalone)
+To install Colab-ssh library, you need to run this command
+```bash
+pip install colab_ssh --upgrade --user
+```
+
+### Cloning a repository (Optional)
+If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
+This is why `init_git` is created.
+
+##### What `init_git` does:
+- Clones the repository
+- Uses your personal token (if you provided it) to setup the repository remote URL (this is useful so you don't have to worry about authentication during `git clone` or `git push` )
+- Checkout the branch of your preference
+- Sets up the `user.email` and `user.name` for you, in case you need to commit.
+
+#### Example:
+```python
+init_git("https://github.com/<OWNER>/<REPO_NAME>.git",
+         personal_token="<YOUR_GITHUB_PERSONAL_TOKEN>", 
+         branch="<YOUR_BRANCH>",
+         email="<YOUR_EMAIL>",
+         username="<YOUR_USERNAME>")
+```
+
+
+### Avoiding passwords (Optional)
 Instead of setting a password, you can access the SSH tunnel using your own pair of keys.
 
-> **IMPORTANT**: For this to work you need to setup your git repository by using the function `git_init()`
+> **IMPORTANT**: For this to work you need to setup your git repository by using the function `init_git()`
 
-**How it works ?** : We get your **public key** from the repository passed into the `git_init()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
+**How it works ?** : We get your **public key** from the repository passed into the `init_git()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
 
 You need to follow these steps:
 1. Create a pair of SSH key
@@ -63,6 +83,29 @@ Host google_colab_ssh
 
 Then connect to the remote `google_colab_ssh`.
 
+## API Reference
+
+### `launch_ssh` function
+This function accepts the following parameters
+|Parameter|Type|Required|Default value|Description|
+|-|-|-|-|-|
+|`token`|string|:heavy_check_mark:|-|Your ngrok token|
+|`password`|string|-|None|The SSH password you want to set, if empty no password will be set. Usually you don't need passwords when you already have an [ssh key setup](#avoiding-passwords)|
+|`verbose`|boolean|-|False|Show more information under the hood|
+|`region`|string|-|`us`|The region you want to setup for ngrok. This can be one of the following: `us`, `eu`, `au`, `ap`, `sa`, `jp`, `in`. See the [official Ngrok documenation](https://ngrok.com/docs#config-options) for more information.|
+|~~`publish`~~|-|-|-|Deprecated|
+
+### `init_git` function
+`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication using your github personal token.
+
+This function accepts the following parameters
+|Parameter|Type|Required|Default value|Description|
+|-|-|-|-|-|
+|repositoryUrl|string|:heavy_check_mark:|-|Your repository URL|
+|branch|string|-|`master`|The branch that you want to checkout|
+|personal_token|string|Only if you want to clone a private repo|-|Your github personal token|
+|email|string|Highly recommended if you are going to commit to the repo|-|Your github email. This will automatically set the `git config --global user.email` for you|
+|username|string|Highly recommended if you are going to commit to the repo|-|Your github username. This will automatically set the `git config --global user.name` for you|
 
 # Contribution
 Well for now, try to discover things yourself.
