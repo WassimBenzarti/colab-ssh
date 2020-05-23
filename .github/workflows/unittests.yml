@@ -19,3 +19,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run tests
       run: python3 -m unittest discover tests "*_unittest.py"
+      env:
+        NGROK_TOKEN: ${{secrets.NGROK_TOKEN}} 
