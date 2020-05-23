@@ -103,7 +103,7 @@ This function accepts the following parameters
 |-|-|-|-|-|
 |repositoryUrl|string|:heavy_check_mark:|-|Your repository URL|
 |branch|string|-|`master`|The branch that you want to checkout|
-|personal_token|string|Only if you want to clone a private repo|-|Your github personal token|
+|personal_token|string|Only if you want to clone a private repo or commit to your own repository|-|Your github personal token|
 |email|string|Highly recommended if you are going to commit to the repo|-|Your github email. This will automatically set the `git config --global user.email` for you|
 |username|string|Highly recommended if you are going to commit to the repo|-|Your github username. This will automatically set the `git config --global user.name` for you|
 
