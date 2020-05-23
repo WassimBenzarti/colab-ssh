@@ -7,6 +7,7 @@ Colab-ssh is a light-weight library that enables you to connect to a Google Cola
 > You still need to open the Google Colab Notebook interface manually in order to setup this tool. Google Colab doesn't have an API yet to automatically run a notebook for you.
 
 ## Getting started
+
 1. Open Google Colab and run this code in one of the code cells
 ```jupyter
 # Install colab_ssh on google colab
@@ -22,12 +23,6 @@ init_git(githubUrl)
 - `password` is an optional parameter, this is your ssh password that you want to set.
 - `githubUrl` is your github **HTTPS** clone url (usually ends with `.git`)
 > Check all the parameters for the `launch_ssh` function in [this section](#API Reference)
-
-### Installation (standalone)
-To install Colab-ssh library, you need to run this command
-```bash
-pip install colab_ssh --upgrade --user
-```
 
 ### Cloning a repository (Optional)
 If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
