@@ -41,9 +41,12 @@ This is why `init_git` is created.
 
 #### Example:
 ```python
-
+init_git("https://github.com/<OWNER>/<REPO_NAME>.git",
+         personal_token="<YOUR_GITHUB_PERSONAL_TOKEN>", 
+         branch="<YOUR_BRANCH>",
+         email="<YOUR_EMAIL>",
+         username="<YOUR_USERNAME>")
 ```
-
 
 
 ### Avoiding passwords (Optional)
