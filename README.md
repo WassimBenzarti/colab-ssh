@@ -49,7 +49,10 @@ Instead of setting a password, you can access the SSH tunnel using your own pair
 
 > **IMPORTANT**: For this to work you need to setup your git repository by using the function `init_git()`
 
-**How it works ?** : We get your **public key** from the repository passed into the `init_git()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
+<details><summary><b>How it works ?</b></summary> 
+         
+We get your **public key** from the repository passed into the `init_git()` function and then we add it to the  `authorized_keys` file (found in `~/.ssh` folder).
+</details>
 
 You need to follow these steps:
 1. Create a pair of SSH key
@@ -91,7 +94,7 @@ This function accepts the following parameters
 |~~`publish`~~|-|-|-|Deprecated|
 
 ### `init_git` function
-`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication using your github personal token.
+`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication every time you open the notebook, this is achieved by setting your github personal token.
 
 This function accepts the following parameters
 |Parameter|Type|Required|Default value|Description|
