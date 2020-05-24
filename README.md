@@ -103,4 +103,4 @@ This function accepts the following parameters
 |username|string|Highly recommended if you are going to commit to the repo|-|Your github username. This will automatically set the `git config --global user.name` for you|
 
 # Contribution
-Well for now, try to discover things yourself.
+Start by opening an issue then we can discuss it, we are open for ideas. About the source code documentation, try to discover things yourself for now.
