@@ -76,6 +76,5 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 		raise Exception(
 			"It looks like something went wrong, please make sure your token is valid")
 	proc.stdout.close()
-	return info
 
 
