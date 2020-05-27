@@ -45,7 +45,7 @@ def init_git(repositoryUrl,
 
     print('''Successfully cloned the repository''')
 
-
+    # Print the VSCode direct link
     try:
       output = get_tunnel_config()
       link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}/content/{repo_name}"
