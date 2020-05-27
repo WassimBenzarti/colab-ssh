@@ -31,12 +31,17 @@ def init_git(repositoryUrl,
     if email: os.system('git config --global user.email "{}"'.format(email))
     if username: os.system('git config --global user.name "{}"'.format(username))
     
-
+    # Bring the public key from the repository and paste it in the authorized_keys
     os.system("mkdir -p ~/.ssh && curl -L -f {} {}/{}/.colab_ssh/authorized_keys >> ~/.ssh/authorized_keys".format(
         ("-H 'Authorization: token {}'".format(personal_token)) if personal_token else "",
         repositoryUrl.split(".git")[0].replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
-    print("Successfully cloned the repository")
+
+
+    print('''
+Successfully cloned the repository
+You can also open the cloned folder using VSCode, by clicking''')
+    
 
     
