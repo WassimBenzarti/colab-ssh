@@ -3,7 +3,7 @@ import os
 import sys
 import importlib
 import requests
-from colab_ssh.get_tunnel_config import get_tunnel_config
+from .get_tunnel_config import get_tunnel_config
 
 
 def parse_folder_name(array):
@@ -45,21 +45,21 @@ def init_git(repositoryUrl,
 
     print('''Successfully cloned the repository''')
 
-    if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
-      from IPython.display import HTML, display
-      try:
-        output = get_tunnel_config()
-        link = f'''
-          <a href='vscode://vscode-remote/ssh-remote+root@{output["domain"]}:{output['port']}/content/{repo_name}'>
-            Open {repo_name}
-          </a><br/>
-        '''
 
+    try:
+      output = get_tunnel_config()
+      link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}/content/{repo_name}"
+      if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
+        from IPython.display import HTML, display
         display(
           HTML(
-            f"[Optional] You can open the cloned folder using VSCode, by clicking {link}"
+            f"""[Optional] You can open the cloned folder using VSCode, by clicking 
+<a href='{link}'>{repo_name}</a>
+            """
           )
         )
-      except Exception as e:
-        if verbose:
-          print(e)
+      else:
+        print(f"[Optional] You can open the cloned folder using VSCode, by going to this url:\n{link}")
+    except Exception as e:
+      if verbose:
+        print(e)
