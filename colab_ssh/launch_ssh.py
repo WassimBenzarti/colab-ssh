@@ -7,6 +7,7 @@ import os
 import time
 import requests
 import re
+from colab_ssh.get_tunnel_config import get_tunnel_config
 
 
 def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
@@ -50,23 +51,18 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 
 	time.sleep(4)
 	# Get public address
-	info = run_with_pipe(
-		'''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"''')
+	try:
+		info = get_tunnel_config()
+	except:
+		raise Exception("It looks like something went wrong, please make sure your token is valid")
 
-	if publish and info and info[0]:
-		publish_host(info[0].decode().strip())
-
-	
 	if verbose:
-		more_info = run_with_pipe(
-			'''curl http://localhost:4040/api/tunnels | python3 -c "import sys, json; print(json.load(sys.stdin))"''')
-		print("DEBUG:", more_info)
+		print("DEBUG:", info)
 
-	if info and info[0]:
+	if info:
 		# Extract the host and port
-		host_and_port = re.match(r'.*://(.*):(\d+)\n', info[0].decode())
-		host = host_and_port.group(1)
-		port = host_and_port.group(2)
+		host = info["domain"]
+		port = info["port"]
 		print("Successfully running", "{}:{}".format(host, port))
 		print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
 		print(f'''
@@ -78,15 +74,8 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 	else:
 		print(proc.stdout.readlines())
 		raise Exception(
-			"It looks like something went wrong, please make sure your token is valid.")
+			"It looks like something went wrong, please make sure your token is valid")
 	proc.stdout.close()
 	return info
 
 
-def publish_host(address):
-	url = 'https://api.jsonbin.io/b/5e5faa9b763fa966d40ed31b'
-	headers = {'Content-Type': 'application/json'}
-	data = {"host": address}
-
-	req = requests.put(url, json=data, headers=headers)
-	# print("Published the host, See the vscode extension: ",req.text)
