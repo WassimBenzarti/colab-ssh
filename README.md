@@ -51,6 +51,7 @@ Successfully cloned the repository
 [Optional] You can open the cloned folder using VSCode, by clicking cloned_repo_name
 ```
 The cloned_repo_name will be shown as a link inside the notebook output (or a url in case of a terminal). This is a direct link to open VSCode directly.
+> Link doesn't appear or doesn't work?
 > - Make sure you have VSCode installed locally for the link to work
 > - Make sure that you run `launch_ssh` before `init_git`
 
