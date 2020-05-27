@@ -1,6 +1,9 @@
 from colab_ssh._command import run_command as _run_command
 import os
 import sys
+import importlib
+import requests
+from colab_ssh.get_tunnel_config import get_tunnel_config
 
 
 def parse_folder_name(array):
@@ -11,15 +14,18 @@ def init_git(repositoryUrl,
             branch="master", 
             personal_token="", 
             email=None, 
-            username=None):
+            username=None,
+            verbose=False):
     # Clone the repository then add the folder to the sys.path
     _run_command("git clone {}".format(
             repositoryUrl.replace("github.com", personal_token+"@github.com")if personal_token else repositoryUrl) ,
             callback=parse_folder_name
     )
 
+    repo_name = os.path.basename(repositoryUrl).rstrip(".git") 
+
     # Checkout the branch
-    os.system('cd "$(basename {} .git)" && git checkout {}'.format(repositoryUrl,branch))
+    os.system(f'cd {repo_name} && git checkout {branch}')
     
     # Make sure that even if the repository is public, the personal token is still in the origin remote url
     if personal_token:
@@ -37,9 +43,23 @@ def init_git(repositoryUrl,
         repositoryUrl.split(".git")[0].replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
-    print('''
-Successfully cloned the repository
-You can also open the cloned folder using VSCode, by clicking''')
-    
+    print('''Successfully cloned the repository''')
 
-    
+    if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
+      from IPython.display import HTML, display
+      try:
+        output = get_tunnel_config()
+        link = f'''
+          <a href='vscode://vscode-remote/ssh-remote+root@{output["domain"]}:{output['port']}/content/{repo_name}'>
+            Open {repo_name}
+          </a><br/>
+        '''
+
+        display(
+          HTML(
+            f"[Optional] You can open the cloned folder using VSCode, by clicking {link}"
+          )
+        )
+      except Exception as e:
+        if verbose:
+          print(e)
