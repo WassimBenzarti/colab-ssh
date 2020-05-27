@@ -52,7 +52,7 @@ Successfully cloned the repository
 ```
 The cloned_repo_name will be shown as a link inside the notebook output (or a url in case of a terminal). This is a direct link to open VSCode directly.
 > - Make sure you have VSCode installed locally for the link to work
-- Make sure that you run `launch_ssh` before `init_git`
+> - Make sure that you run `launch_ssh` before `init_git`
 
 
 ### Avoiding passwords (Optional)
