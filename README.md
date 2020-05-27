@@ -42,6 +42,13 @@ init_git("https://github.com/<OWNER>/<REPO_NAME>.git",
          email="<YOUR_EMAIL>",
          username="<YOUR_USERNAME>")
 ```
+The output of this command will look like this:
+```
+Successfully cloned the repository
+[Optional] You can open the cloned folder using VSCode, by clicking cloned_repo_name
+```
+The cloned_repo_name will be shown as a link (or a url in case on terminal). This is a direct link to open VSCode directly.
+> Make sure you you have VSCode installed locally for the link to work
 
 
 ### Avoiding passwords (Optional)
