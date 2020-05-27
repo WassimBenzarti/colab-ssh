@@ -33,6 +33,7 @@ This is why `init_git` is created.
 - Uses your personal token (if you provided it) to setup the repository remote URL (this is useful so you don't have to worry about authentication during `git clone` or `git push` )
 - Checkout the branch of your preference
 - Sets up the `user.email` and `user.name` for you, in case you need to commit.
+- Also, it inserts the cloned folder to the sys.path. This is helpful when your cloned repository is a python project and you want to import some python modules directly (without specifying the name of the root folder) to your Google Colab Notebook. Example: If you cloned a repository called `example-repo`. A folder should be created containing your cloned repository. If `example-repo` has a python module called `my_module`, instead of writing in your notebook `import example-repo.my_module`, you can simply do `import my_module`.
 
 #### Example:
 ```python
