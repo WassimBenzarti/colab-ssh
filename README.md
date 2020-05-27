@@ -1,4 +1,4 @@
-# Google Colab-ssh
+# Colab-ssh
 #### Connect to Google colab via ssh easily
 
 > 🎉 Happy to announce that we now support VSCode direct links when you use `init_git`
