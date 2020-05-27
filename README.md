@@ -1,6 +1,8 @@
 # Google Colab-ssh
 #### Connect to Google colab via ssh easily
 
+> 🎉 Happy to announce that we now support VSCode direct links when you use `init_git`
+
 ## What is Colab-ssh
 Colab-ssh is a light-weight library that enables you to connect to a Google Colab virtual machine using an SSH tunnel.
 
