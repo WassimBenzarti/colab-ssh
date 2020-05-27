@@ -37,8 +37,6 @@ def init_git(repositoryUrl,
         repositoryUrl.split(".git")[0].replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
-
-
     print('''
 Successfully cloned the repository
 You can also open the cloned folder using VSCode, by clicking''')
