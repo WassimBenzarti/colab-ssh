@@ -8,6 +8,7 @@ import time
 import requests
 import re
 from colab_ssh.get_tunnel_config import get_tunnel_config
+from .utils.expose_env_variable import expose_env_variable
 
 
 def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
@@ -41,8 +42,10 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 	os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
 	if password:
 		os.system('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
-	os.system('echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc')
-	os.system('echo "export LD_LIBRARY_PATH" >> /root/.bashrc')
+
+	expose_env_variable("LD_LIBRARY_PATH")
+	expose_env_variable("COLAB_TPU_ADDR")
+
 	os.system('/usr/sbin/sshd -D &')
 
 	# Create tunnel
@@ -66,10 +69,10 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 		print("Successfully running", "{}:{}".format(host, port))
 		print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
 		print(f'''
-	  Host google_colab_ssh
-		  HostName {host}
-		  User root
-		  Port {port}
+	Host google_colab_ssh
+		HostName {host}
+		User root
+		Port {port}
 	  ''')
 	else:
 		print(proc.stdout.readlines())
