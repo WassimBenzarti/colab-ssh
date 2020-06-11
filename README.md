@@ -93,7 +93,7 @@ Host google_colab_ssh
 
 Then connect to the remote `google_colab_ssh`.
 ### Other useful documentation
-- [Exposing an environment variable](docs/expose-env-variable.md)
+- [Exposing a Google Colab environment variable](docs/expose-env-variable.md)
 ## API Reference
 
 ### `launch_ssh` function
