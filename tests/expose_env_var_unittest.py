@@ -13,7 +13,7 @@ class TestLaunchSSH(unittest.TestCase):
 		os.system(f"echo 'previous stuff' >> {self.bash_rc_path}")
 		os.environ["COLAB_SSH_TEST_ENV_VAR"] = "123"
 		
-		expose_env_variable("COLAB_SSH_TEST_ENV_VAR", bash_rc_path=self.bash_rc_path)
+		expose_env_variable("COLAB_SSH_TEST_ENV_VAR", self.bash_rc_path)
 
 		with open("./.bashrc", "r") as f:
 			lines = f.readlines()
