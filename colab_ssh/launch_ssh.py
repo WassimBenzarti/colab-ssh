@@ -45,6 +45,11 @@ def launch_ssh(token, password="", publish=True, verbose=False, region="us"):
 
 	expose_env_variable("LD_LIBRARY_PATH")
 	expose_env_variable("COLAB_TPU_ADDR")
+	expose_env_variable("COLAB_GPU")
+	expose_env_variable("TBE_CREDS_ADDR")
+	expose_env_variable("TF_FORCE_GPU_ALLOW_GROWTH")
+	expose_env_variable("TPU_NAME")
+	expose_env_variable("XRT_TPU_CONFIG")
 
 	os.system('/usr/sbin/sshd -D &')
 
