@@ -1,4 +1,4 @@
-![Cover photo of Colab-ssh](assets/docs/cover.png)
+![Cover photo of Colab-ssh](docs/assets/cover.png)
 
 
 # Colab-ssh
