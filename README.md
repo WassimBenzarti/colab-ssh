@@ -1,3 +1,6 @@
+![Cover photo of Colab-ssh](assets/docs/cover.png)
+
+
 # Colab-ssh
 #### Connect to Google colab via ssh easily
 
