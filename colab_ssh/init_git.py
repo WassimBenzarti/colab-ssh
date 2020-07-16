@@ -22,7 +22,8 @@ def init_git(repositoryUrl,
             callback=parse_folder_name
     )
 
-    repo_name = os.path.basename(repositoryUrl).rstrip(".git") 
+    repo_name = os.path.basename(repositoryUrl)
+    repo_name, _ = os.path.splitext(repo_name)
 
     # Checkout the branch
     os.system(f'cd {repo_name} && git checkout {branch}')
