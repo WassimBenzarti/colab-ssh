@@ -31,7 +31,7 @@ init_git(githubUrl)
 - `password` is an optional parameter, this is your ssh password that you want to set.
 - `githubUrl` is your github **HTTPS** clone url (usually ends with `.git`)
 
-> Looking for a way to specify an ngrok **region** ? Check all the parameters for the `launch_ssh` function in [this section](#api-reference)
+> Looking for a way to specify an ngrok **region** ? Check all the parameters for the `launch_ssh` function in [this section](docs/api-reference.md)
 
 
 ### Cloning a repository (Optional)
