@@ -30,7 +30,9 @@ init_git(githubUrl)
 - `ngrokToken` is your ngrok token that you can get from [here](https://dashboard.ngrok.com/auth)
 - `password` is an optional parameter, this is your ssh password that you want to set.
 - `githubUrl` is your github **HTTPS** clone url (usually ends with `.git`)
-> Check all the parameters for the `launch_ssh` function in [this section](#api-reference)
+
+> Looking for a way to specify an ngrok **region** ? Check all the parameters for the `launch_ssh` function in [this section](#api-reference)
+
 
 ### Cloning a repository (Optional)
 If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
