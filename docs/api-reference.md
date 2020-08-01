@@ -9,6 +9,7 @@ This function accepts the following parameters
 |`password`|string|-|None|The SSH password you want to set, if empty no password will be set. Usually you don't need passwords when you already have an [ssh key setup](#avoiding-passwords)|
 |`verbose`|boolean|-|False|Show more information under the hood|
 |`region`|string|-|`us`|The region you want to setup for ngrok. This can be one of the following: `us`, `eu`, `au`, `ap`, `sa`, `jp`, `in`. See the [official Ngrok documenation](https://ngrok.com/docs#config-options) for more information.|
+|`remote_addr`|string|-|None|The reserved remote address. See the [official Ngrok documenation](https://ngrok.com/docs#tcp-remote-addr) for more information.|
 |~~`publish`~~|-|-|-|Deprecated|
 
 ### `init_git` function
