@@ -33,6 +33,8 @@ init_git(githubUrl)
 
 > Looking for a way to specify an ngrok **region** ? Check all the parameters for the `launch_ssh` function in [this page](docs/api-reference.md)
 
+> Looking for a way to specify an ngrok **reserved remote address** ? Check all the parameters for the `launch_ssh` function in [this page](docs/api-reference.md)
+
 
 ### Cloning a repository (Optional)
 If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
