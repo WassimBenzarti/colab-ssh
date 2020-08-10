@@ -5,6 +5,7 @@ import importlib
 import requests
 from .get_tunnel_config import get_tunnel_config
 import re
+from .show_hint_message import show_hint_message
 
 
 
@@ -21,6 +22,7 @@ def parse_cloning_output(array):
     # Error occured in the cloning
     info, error = array
     print("""Error: {}""".format(error))
+    show_hint_message(error)
 
 
 def init_git(repositoryUrl, 
