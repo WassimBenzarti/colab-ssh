@@ -4,11 +4,24 @@ import sys
 import importlib
 import requests
 from .get_tunnel_config import get_tunnel_config
+import re
 
 
-def parse_folder_name(array):
-    import re
-    sys.path.insert(0, "./"+re.search("'(.*?)'", array[0]).groups(1)[0])
+
+def add_folder_to_sys_path(folder_path):
+    sys.path.insert(0, folder_path)
+
+def parse_cloning_output(array):
+    # Successfully cloned
+    if len(array) == 1:
+        folder_path = "./"+re.search("'(.*?)'", array[0]).groups(1)[0]
+        print('''Successfully cloned the repository in {}'''.format(folder_path))
+        return add_folder_to_sys_path(folder_path)
+    
+    # Error occured in the cloning
+    info, error = array
+    print("""Error: {}""".format(error))
+
 
 def init_git(repositoryUrl, 
             branch="master", 
@@ -16,10 +29,12 @@ def init_git(repositoryUrl,
             email=None, 
             username=None,
             verbose=False):
+    # Add the Personal access token if available
+    full_url = repositoryUrl.replace("github.com", personal_token+"@github.com") if personal_token else repositoryUrl
     # Clone the repository then add the folder to the sys.path
-    _run_command("git clone {}".format(
-            repositoryUrl.replace("github.com", personal_token+"@github.com")if personal_token else repositoryUrl) ,
-            callback=parse_folder_name
+    _run_command(
+        "git clone {}".format(full_url),
+        callback=parse_cloning_output
     )
 
     repo_name = os.path.basename(repositoryUrl)
@@ -44,7 +59,7 @@ def init_git(repositoryUrl,
         repositoryUrl.split(".git")[0].replace("github.com", "raw.githubusercontent.com"), 
         branch))
 
-    print('''Successfully cloned the repository''')
+    
 
     # Print the VSCode direct link
     try:
