@@ -14,6 +14,8 @@ Colab-ssh is a light-weight library that enables you to connect to a Google Cola
 
 > <details><summary> <b> Can I open the Colab notebook automatically without user interaction ?</b> </summary>No, you still need to open the Google Colab Notebook interface manually in order to setup this tool. Google Colab doesn't have an API yet to automatically run a notebook for you.</details>
 
+> :warning: Colab-ssh supports Google colaboratory notebooks only, using it on other notebooks may lead to unexpected behavior. 
+
 ## Getting started
 
 1. Open Google Colab and run this code in one of the code cells
