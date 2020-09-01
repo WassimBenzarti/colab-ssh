@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Improve the errors related to branches
 - Add support for a reserved remote address (issue opened by @rbracco) 
 
 - Fix issues with git URL extension thanks to @flych3r

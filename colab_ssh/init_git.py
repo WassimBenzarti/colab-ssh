@@ -5,10 +5,8 @@ import importlib
 import requests
 from .get_tunnel_config import get_tunnel_config
 import re
-
+from urllib.parse import quote
 from .utils import show_hint_message
-
-
 
 
 def add_folder_to_sys_path(folder_path):
@@ -23,23 +21,42 @@ def parse_cloning_output(array):
       return add_folder_to_sys_path(folder_path)
 
   # Error occured in the cloning
-  info, error = array
+  print("DEBUG:", array)
+  info, error, *rest = array
   print("""Error: {}""".format(error))
   show_hint_message(error)
 
 
 def init_git(repositoryUrl,
-            branch="master",
+            branch="",
             personal_token="",
             email=None,
             username=None,
             verbose=False):
-  print("hello")
   # Add the Personal access token if available
   full_url = repositoryUrl.replace("github.com", personal_token+"@github.com") if personal_token else repositoryUrl
+  
+  if not personal_token:
+    response = requests.get(full_url)
+    if response.status_code == 200:
+      print("✔️ Public repository")
+    else:
+      # Get username if not passed
+      username_input= input("Enter your username: (leave it empty if it's '{}')\n".format(username))
+      username = quote(username_input or username)
+      # Get password
+      from getpass import getpass
+      password = quote(getpass('Enter your password: \n'))
+      if password:
+        full_url = repositoryUrl.replace("github.com", "{}:{}@github.com".format(username, password))
+
   # Clone the repository then add the folder to the sys.path
   _run_command(
-      "git clone {}".format(full_url),
+      "git clone {} {}".format(
+        # Branch argument
+        "--branch {}".format(branch) if branch else "",
+        # Url argument
+        full_url),
       callback=parse_cloning_output
   )
 
@@ -47,13 +64,11 @@ def init_git(repositoryUrl,
   repo_name, _ = os.path.splitext(repo_name)
 
   # Checkout the branch
-  os.system(f'cd {repo_name} && git checkout {branch}')
+  os.system(f'cd {repo_name}')
   
   # Make sure that even if the repository is public, the personal token is still in the origin remote url
   if personal_token:
-    os.system("git remote set-url origin {}".format(
-      repositoryUrl.replace("github.com", personal_token+"@github.com")
-    ))
+    os.system("git remote set-url origin {}".format(full_url))
 
   # Add the email and username
   if email: os.system('git config --global user.email "{}"'.format(email))
@@ -80,6 +95,7 @@ def init_git(repositoryUrl,
         )
       )
     else:
+      # Support for terminal
       print(f"[Optional] You can open the cloned folder using VSCode, by going to this url:\n{link}")
   except Exception as e:
     if verbose:
