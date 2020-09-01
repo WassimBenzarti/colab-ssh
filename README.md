@@ -83,7 +83,7 @@ You need to follow these steps:
 4. Paste your **public key** inside the file `.collab_ssh/authorized_keys`
 
 
-### Using VSCode to connect Google Colab
+### Using VSCode to connect to Google Colab
 Once you run the code in the **Getting Started** section you will notice a message like this
 ```
 ...
