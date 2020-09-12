@@ -49,7 +49,7 @@ def init_git(repositoryUrl,
     # Print the VSCode direct link
     try:
       output = get_tunnel_config()
-      link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}/content/{repo_name}"
+      link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}{os.getcwd()}/{repo_name}"
       if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
         from IPython.display import HTML, display
         display(
