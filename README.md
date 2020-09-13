@@ -44,7 +44,7 @@ This is why `init_git` is created.
 
 ##### What `init_git` does:
 - Clones the repository
-- Uses your personal token (if you provided it) to setup the repository remote URL (this is useful so you don't have to worry about authentication during `git clone` or `git push` )
+- Uses your personal token (if you provided it) to setup the repository remote URL (this is useful so you don't have to worry about authentication during `git clone` or `git push`). If you clone a private repository without a personal token, you will be asked to put your password.
 - Checkout the branch of your preference
 - Sets up the `user.email` and `user.name` for you, in case you need to commit.
 - Also, it inserts the cloned folder to the `sys.path`. This is helpful when your cloned repository is a python project and you want to import some python modules directly (without specifying the name of the root folder) to your Google Colab Notebook. Example: If you cloned a repository called `example-repo`. A folder should be created containing your cloned repository. If `example-repo` has a python module called `my_module`, instead of writing in your notebook `import example-repo.my_module`, you can simply do `import my_module`.
@@ -85,7 +85,7 @@ You need to follow these steps:
 4. Paste your **public key** inside the file `.collab_ssh/authorized_keys`
 
 
-### Using VSCode to connect Google Colab
+### Using VSCode to connect to Google Colab
 Once you run the code in the **Getting Started** section you will notice a message like this
 ```
 ...
