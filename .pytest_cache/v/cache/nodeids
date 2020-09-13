@@ -1,8 +1,0 @@
-[
-  "tests/test_expose_env_var.py::test_env_var",
-  "tests/test_init_git.py::test_init_git",
-  "tests/test_launch_ssh.py::test_token_is_wrong",
-  "tests/test_launch_ssh.py::test_token_missing",
-  "tests/test_launch_ssh.py::test_success",
-  "tests/test_launch_ssh.py::test_success_with_region"
-]

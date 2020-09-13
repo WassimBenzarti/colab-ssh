@@ -1,3 +1,4 @@
+import logging
 from colab_ssh._command import run_command as _run_command
 import os
 import sys
@@ -7,13 +8,17 @@ from .get_tunnel_config import get_tunnel_config
 import re
 from urllib.parse import quote
 from .utils import show_hint_message
+from colab_ssh.utils.logger import get_logger
 
+logger= get_logger()
 
 def add_folder_to_sys_path(folder_path):
   sys.path.insert(0, folder_path)
 
 
+
 def parse_cloning_output(array):
+  git_logger= get_logger("git")
   # Successfully cloned
   if len(array) == 1:
       folder_path = "./"+re.search("'(.*?)'", array[0]).groups(1)[0]
@@ -21,9 +26,9 @@ def parse_cloning_output(array):
       return add_folder_to_sys_path(folder_path)
 
   # Error occured in the cloning
-  print("DEBUG:", array)
+  git_logger.debug(array)
   info, error, *rest = array
-  print("""Error: {}""".format(error))
+  git_logger.error(error)
   show_hint_message(error)
 
 
@@ -39,7 +44,7 @@ def init_git(repositoryUrl,
   if not personal_token:
     response = requests.get(full_url)
     if response.status_code == 200:
-      print("✔️ Public repository")
+      logger.info("✔️ Public repository")
     else:
       # Get username if not passed
       username_input= input("Enter your username: (leave it empty if it's '{}')\n".format(username))
