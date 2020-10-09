@@ -37,7 +37,7 @@ def launch_ssh(token,
 
     # Install the openssh server
     os.system(
-        "apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null")
+        "apt-get -qq update && apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null")
 
     # Set the password
     run_with_pipe("echo root:{} | chpasswd".format(password))
