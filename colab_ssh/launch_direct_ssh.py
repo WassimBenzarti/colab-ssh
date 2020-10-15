@@ -29,7 +29,7 @@ def launch_direct_ssh(username, ip_address, port,
   run_command("pkill -f ssh")
 
   # Download autossh
-  run_command("apt-get install -y autossh openssh-server")
+  run_command("apt-get -qq update && apt-get install -y autossh openssh-server")
 
   # Get the public key from the client (the one with the ip_address)
   run_command(f'scp -o "StrictHostKeyChecking=no" -P {port} {username}@{ip_address}:{public_key_path} ~/.ssh/authorized_keys')
