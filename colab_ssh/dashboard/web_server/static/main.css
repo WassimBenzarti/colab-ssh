@@ -1,0 +1,25 @@
+body{
+	padding:0;
+	margin:0;
+	padding:10px;
+
+}
+.card{
+	background: white;
+	border-radius: 8px;
+	border: solid 1px #DDD;
+	padding:10px;
+}
+*{
+	font-family: monospace;
+}
+p{
+	font-size:11px;
+}
+.flex{
+	display:flex;
+	flex-wrap:wrap;
+}
+.flex-row{
+	flex-direction: row;
+}
