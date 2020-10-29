@@ -13,9 +13,6 @@ body{
 *{
 	font-family: monospace;
 }
-p{
-	font-size:11px;
-}
 .flex{
 	display:flex;
 	flex-wrap:wrap;
