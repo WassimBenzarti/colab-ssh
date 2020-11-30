@@ -1,3 +1,4 @@
+from colab_ssh.utils.ui.render_html import render_template
 import random
 import string
 from subprocess import Popen, PIPE
@@ -15,10 +16,10 @@ def launch_cloudflared_ssh(
                password="",
                verbose=False):
 
-    # Kill any ngrok process if running
-    os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
+    # Kill any cloudflared process if running
+    os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
 
-    # Download ngrok
+    # Download cloudflared
     run_command(
         "wget -q -nc https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz")
     run_command("tar zxf cloudflared-stable-linux-amd64.tgz")
@@ -50,8 +51,7 @@ def launch_cloudflared_ssh(
 
     # Create tunnel
     proc = Popen(shlex.split(
-        f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {}'.format(
-            " ".join(extra_params))
+        f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
     ), stdout=PIPE)
 
     time.sleep(4)
@@ -69,23 +69,24 @@ def launch_cloudflared_ssh(
         # Extract the host and port
         host = info["domain"]
         port = info["port"]
-        print("Successfully running", "{}:{}".format(host, port))
-        print("[Optional] You can also connect with VSCode SSH Remote extension by:")
-        print(f"""
-    1. Set the following configuration into your SSH config file (~/.ssh/config):
+        # print("Successfully running on ", "{}:{}".format(host, port))
+        render_template("ssh_connect.html", info)
+    #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
+    #     print(f"""
+    # 1. Set the following configuration into your SSH config file (~/.ssh/config):
         
-        Host *.trycloudflare.com
-            HostName %h
-            User root
-            Port {port}
-            ProxyCommand <PUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE> access ssh --hostname %h
+    #     Host *.trycloudflare.com
+    #         HostName %h
+    #         User root
+    #         Port {port}
+    #         ProxyCommand <PUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE> access ssh --hostname %h
     
-    2. Connect to Remote SSH on VSCode (Ctrl+Shift+P and type "Connect to Host...") and paste this hostname:
-        {host}
-        """)
-        print(f'''
+    # 2. Connect to Remote SSH on VSCode (Ctrl+Shift+P and type "Connect to Host...") and paste this hostname:
+    #     {host}
+    #     """)
+    #     print(f'''
 	
-	  ''')
+	#   ''')
     else:
         print(proc.stdout.readlines())
         raise Exception(
