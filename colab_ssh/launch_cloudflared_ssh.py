@@ -60,7 +60,7 @@ def launch_cloudflared_ssh(
         info = get_argo_tunnel_config()
     except:
         raise Exception(
-            "It looks like something went wrong, please make sure your token is valid")
+            "It looks like something went wrong, this might be a problem with cloudflared")
 
     if verbose:
         print("DEBUG:", info)
@@ -70,12 +70,21 @@ def launch_cloudflared_ssh(
         host = info["domain"]
         port = info["port"]
         print("Successfully running", "{}:{}".format(host, port))
-        print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
+        print("[Optional] You can also connect with VSCode SSH Remote extension by:")
+        print(f"""
+    1. Set the following configuration into your SSH config file (~/.ssh/config):
+        
+        Host *.trycloudflare.com
+            HostName %h
+            User root
+            Port {port}
+            ProxyCommand <PUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE> access ssh --hostname %h
+    
+    2. Connect to Remote SSH on VSCode (Ctrl+Shift+P and type "Connect to Host...") and paste this hostname:
+        {host}
+        """)
         print(f'''
-	Host google_colab_ssh
-		HostName {host}
-		User root
-		Port {port}
+	
 	  ''')
     else:
         print(proc.stdout.readlines())
