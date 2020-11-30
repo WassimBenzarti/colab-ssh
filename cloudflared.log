@@ -1,0 +1,4 @@
+[2020-11-30T17:23:53.397186032Z]: Cannot determine default origin certificate path. No file cert.pem in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]
+[2020-11-30T17:23:53.397222142Z]: You need to specify the origin certificate path with --origincert option, or set TUNNEL_ORIGIN_CERT environment variable. See https://developers.cloudflare.com/argo-tunnel/reference/arguments/ for more information.
+[2020-11-30T17:23:53.397257349Z]: Cannot determine default origin certificate path. No file cert.pem in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]
+[2020-11-30T17:23:53.397262798Z]: You need to specify the origin certificate path with --origincert option, or set TUNNEL_ORIGIN_CERT environment variable. See https://developers.cloudflare.com/argo-tunnel/reference/arguments/ for more information.
