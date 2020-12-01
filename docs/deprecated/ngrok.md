@@ -1,6 +1,7 @@
 
-> :warning: For reasons that exceed the scope of colab-ssh, ngrok doesn't work anymore with Google Colab, Learn more in this issue #45.
+> :warning: For reasons that exceed the scope of colab-ssh, ngrok doesn't work anymore with Google Colab, Learn more in this [issue #45](https://github.com/WassimBenzarti/colab-ssh/issues/45).
 
+### Getting started
 1. Open Google Colab and run this code in one of the code cells
 ```jupyter
 # Install colab_ssh on google colab
