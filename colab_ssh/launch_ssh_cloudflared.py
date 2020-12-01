@@ -12,12 +12,14 @@ from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
 
 
-def launch_cloudflared_ssh(
+def launch_ssh_cloudflared(
                password="",
-               verbose=False):
+               verbose=False,
+               kill_other_processes=False):
 
     # Kill any cloudflared process if running
-    #os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
+    if kill_other_processes:
+        os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
 
     # Download cloudflared
     run_command(
@@ -68,7 +70,7 @@ def launch_cloudflared_ssh(
     if info:
         # print("Successfully running on ", "{}:{}".format(host, port))
         from IPython.display import display, HTML
-        display(HTML(render_template("launch_cloudflared_ssh.html", info)))
+        display(HTML(render_template("launch_ssh_cloudflared.html", info)))
     #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
     #     print(f"""
     # 1. Set the following configuration into your SSH config file (~/.ssh/config):
