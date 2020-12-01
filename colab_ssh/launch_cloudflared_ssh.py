@@ -70,7 +70,7 @@ def launch_cloudflared_ssh(
         host = info["domain"]
         port = info["port"]
         # print("Successfully running on ", "{}:{}".format(host, port))
-        render_template("ssh_connect.html", info)
+        render_template("launch_cloudflared_ssh.html", info)
     #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
     #     print(f"""
     # 1. Set the following configuration into your SSH config file (~/.ssh/config):
