@@ -1,4 +1,3 @@
-import logging
 from colab_ssh._command import run_command as _run_command
 import os
 import sys

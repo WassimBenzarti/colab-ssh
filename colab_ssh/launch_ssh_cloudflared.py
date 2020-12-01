@@ -1,15 +1,12 @@
 from colab_ssh.utils.ui.render_html import render_template
-import random
-import string
 from subprocess import Popen, PIPE
 import shlex
 from colab_ssh._command import run_command, run_with_pipe
 import os
 import time
-import requests
-import re
 from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
+import importlib
 
 
 def launch_ssh_cloudflared(
@@ -69,8 +66,30 @@ def launch_ssh_cloudflared(
 
     if info:
         # print("Successfully running on ", "{}:{}".format(host, port))
-        from IPython.display import display, HTML
-        display(HTML(render_template("launch_ssh_cloudflared.html", info)))
+        if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
+            from IPython.display import display, HTML
+            display(HTML(render_template("launch_ssh_cloudflared.html", info)))
+        else:
+            print("Now, you need to setup your client machine by following these steps:")
+            print("""
+    1) Download Cloudflared (Argo Tunnel) from https://developers.cloudflare.com/argo-tunnel/getting-started/installation, then copy the absolute path to the cloudflare binary.
+    2) Append the following to your SSH config file (usually under ~/.ssh/config):
+
+        Host *.trycloudflare.com
+            HostName %h
+            User root
+            Port 22
+            ProxyCommand &ltPUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE&gt access ssh --hostname %h
+
+*) Connect with SSH Terminal
+    To connect using your terminal, type this command: 
+        ssh {domain}
+
+*) Connect with VSCode Remote SSH
+    You can also connect with VSCode Remote SSH (Ctrl+Shift+P and type "Connect to Host..."). Then, paste the following hostname in the opened command palette:
+        {domain}
+""".format(**info))
+
     #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
     #     print(f"""
     # 1. Set the following configuration into your SSH config file (~/.ssh/config):
