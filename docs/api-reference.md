@@ -10,7 +10,7 @@ This function accepts the following parameters
 |`kill_other_processes`|boolean|-|False|This will kill all cloudflared processes before starting a new one|
 
 ### `init_git_cloudflared` function
-`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication every time you open the notebook, this is achieved by setting your github personal token.
+This function allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication every time you open the notebook, this can be achieved by setting your **github personal token**.
 
 This function accepts the following parameters
 |Parameter|Type|Required|Default value|Description|
