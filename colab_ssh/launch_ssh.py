@@ -18,6 +18,10 @@ def launch_ssh(token,
                region="us",
                remote_addr=None):
 
+    # Deprecation Warning
+    print("""Warning: Due to some issues with ngrok on Google Colab, reported in the issue https://github.com/WassimBenzarti/colab-ssh/issues/45, 
+we highly recommend that update your code by following this documentation https://github.com/WassimBenzarti/colab-ssh#getting-started""")
+
     # Ensure the ngrok auth token is not empty
     if(not token):
         raise Exception(

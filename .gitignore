@@ -8,3 +8,7 @@ __pycache__/
 .env*
 !.env.example
 .pytest_cache
+
+/cloudflared.log
+/cloudflared-stable-linux-amd64.tgz
+/cloudflared
