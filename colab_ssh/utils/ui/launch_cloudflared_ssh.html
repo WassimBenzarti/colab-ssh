@@ -41,7 +41,7 @@ p, li{{
 </style>
 <h3>Almost there! <p style="font-weight:100; font-size:12px">(This is done only once)</p></h3>
 <ol>
-	<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a></li>
+	<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path to the cloudflare binary</li>
 	<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config):</li>
 </ol>
 <code>Host *.trycloudflare.com
@@ -54,12 +54,12 @@ p, li{{
 	<div class="choice-section">
 		<h4>SSH Terminal</h4>
 		<p>To connect using your terminal, type this command:</p>
-		<code>ssh {host}</code>
+		<code>ssh {domain}</code>
 	</div>
 	<div class="choice-section">
 		<h4>VSCode Remote SSH</h4>
 		<p>You can also connect with VSCode Remote SSH (Ctrl+Shift+P and type "Connect to Host..."). Then, paste the following hostname in the opened command palette:</p>
-		<code>{host}</code>
+		<code>{domain}</code>
 	</div>
 </div>
 

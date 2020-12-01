@@ -17,7 +17,7 @@ def launch_cloudflared_ssh(
                verbose=False):
 
     # Kill any cloudflared process if running
-    os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
+    #os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
 
     # Download cloudflared
     run_command(
@@ -66,11 +66,9 @@ def launch_cloudflared_ssh(
         print("DEBUG:", info)
 
     if info:
-        # Extract the host and port
-        host = info["domain"]
-        port = info["port"]
         # print("Successfully running on ", "{}:{}".format(host, port))
-        render_template("launch_cloudflared_ssh.html", info)
+        from IPython.display import display, HTML
+        display(HTML(render_template("launch_cloudflared_ssh.html", info)))
     #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
     #     print(f"""
     # 1. Set the following configuration into your SSH config file (~/.ssh/config):
