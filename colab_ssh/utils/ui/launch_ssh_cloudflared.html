@@ -1,0 +1,129 @@
+<style>
+*{{
+	outline:none;
+}}
+code{{
+	display:inline-block;
+	padding:5px 10px;
+	background: #444;
+	border-radius: 4px;
+	white-space: pre-wrap;
+	position:relative;
+	color:white;
+}}
+.copy-code-button{{
+	float:right;
+	background:#333;
+	color:white;
+	border: none;
+	margin: 0 0 0 10px;
+	cursor: pointer;
+}}
+p, li{{
+	max-width:700px;
+}}
+.choices{{
+	display:flex;
+	flex: 1 0 auto;
+}}
+.choice-section{{
+	border:solid 1px #555;
+	border-radius: 4px;
+	min-width:300px;
+	margin: 10px 15px 0 0;
+	padding: 0 15px 15px 15px ;
+}}
+.button{{
+	padding: 10px 15px;
+	background:#333;
+	border-radius: 4px;
+	border:solid 1px #555;
+	color:white;
+	font-weight:bold;
+	cursor:pointer;
+}}
+.pill{{
+	padding:2px 4px;
+	border-radius: 100px;
+	background-color:#e65858;
+	font-size:12px;
+	font-weight:bold;
+	margin: 0 15px;
+	color:white;
+}}
+</style>
+<details class="choice-section">
+	<summary style="cursor:pointer">
+		<h3 style="display:inline-block;margin-top:15px">⚙️ Client machine configuration<span class="pill">Required</span></h3>
+	</summary>
+	<p>Don't worry, you only have to do this <b>once per client machine</b>.</p>
+	<ol>
+		<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path to the cloudflare binary</li>
+		<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config):</li>
+	</ol>
+	<code>Host *.trycloudflare.com
+	HostName %h
+	User root
+	Port 22
+	ProxyCommand &ltPUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE&gt access ssh --hostname %h
+	</code>
+</details>
+<div class="choices">
+	<div class="choice-section">
+		<h4>SSH Terminal</h4>
+		<p>To connect using your terminal, type this command:</p>
+		<code>ssh {domain}</code>
+	</div>
+	<div class="choice-section">
+		<h4>VSCode Remote SSH</h4>
+		<p>You can also connect with VSCode Remote SSH (Ctrl+Shift+P and type "Connect to Host..."). Then, paste the following hostname in the opened command palette:</p>
+		<code>{domain}</code>
+	</div>
+</div>
+
+<script>
+// Copy any string
+function fallbackCopyTextToClipboard(text) {{
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  
+  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {{
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  }} catch (err) {{
+    console.error('Fallback: Oops, unable to copy', err);
+  }}
+
+  document.body.removeChild(textArea);
+}}
+
+// Show the copy button with every code tag
+document.querySelectorAll('code').forEach(function (codeBlock) {{
+	const codeToCopy= codeBlock.innerText;
+	var pre = document.createElement('pre');
+	pre.innerText = codeToCopy;
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    button.innerText = 'Copy';
+	button.onclick = function(){{
+		fallbackCopyTextToClipboard(codeToCopy);
+		button.innerText = 'Copied'
+		setTimeout(()=>{{
+			button.innerText = 'Copy'
+		}},2000)
+	}}
+	codeBlock.children = pre;
+	codeBlock.prepend(button)
+}});
+</script>

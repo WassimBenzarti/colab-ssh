@@ -1,19 +1,16 @@
 # API reference
 
 
-### `launch_ssh` function
+### `launch_ssh_cloudflared` function
 This function accepts the following parameters
 |Parameter|Type|Required|Default value|Description|
 |-|-|-|-|-|
-|`token`|string|:heavy_check_mark:|-|Your ngrok token|
-|`password`|string|-|None|The SSH password you want to set, if empty no password will be set. Usually you don't need passwords when you already have an [ssh key setup](#avoiding-passwords)|
+|`password`|string|-|None|The SSH password you want to set, if empty no password will be set. Usually you don't need passwords when you already have an [ssh key setup](../README.md#avoiding-passwords-optional)|
 |`verbose`|boolean|-|False|Show more information under the hood|
-|`region`|string|-|`us`|The region you want to setup for ngrok. This can be one of the following: `us`, `eu`, `au`, `ap`, `sa`, `jp`, `in`. See the [official Ngrok documenation](https://ngrok.com/docs#config-options) for more information.|
-|`remote_addr`|string|-|None|The reserved remote address. See the [official Ngrok documenation](https://ngrok.com/docs#tcp-remote-addr) for more information.|
-|~~`publish`~~|-|-|-|Deprecated|
+|`kill_other_processes`|boolean|-|False|This will kill all cloudflared processes before starting a new one|
 
-### `init_git` function
-`init_git` allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication every time you open the notebook, this is achieved by setting your github personal token.
+### `init_git_cloudflared` function
+This function allows you to clone a repository (private or public) and sets up the right remote URL without the need for authentication every time you open the notebook, this can be achieved by setting your **github personal token**.
 
 This function accepts the following parameters
 |Parameter|Type|Required|Default value|Description|

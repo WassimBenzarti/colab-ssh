@@ -1,36 +1,13 @@
 from pytest import fixture
-from colab_ssh import launch_ssh
+from colab_ssh import launch_ssh_cloudflared
 import os
 import pytest
-from dotenv import load_dotenv
-load_dotenv(verbose=True)
-
-NGROK_TOKEN = os.getenv("NGROK_TOKEN")
-
-@fixture
-def ngorkToken():
-    token = os.getenv("NGROK_TOKEN")
-    if(not token):
-        raise Exception("Missing NGROK_TOKEN in the environment, you add it to a .env file in the root folder.")
-    yield token
 
 
-def test_token_is_wrong():
-    with pytest.raises(Exception) as e:
-        launch_ssh(", ")
-    exception = e.value
-    assert str(exception) == "It looks like something went wrong, please make sure your token is valid"
 
-def test_token_missing():
-    with pytest.raises(Exception) as e:
-        launch_ssh("")
-    exception = e.value
-    assert str(exception) == "Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth"
+def test_success():
+    launch_ssh_cloudflared("123456", verbose=True)
 
-
-def test_success(ngorkToken):
-    launch_ssh(ngorkToken, verbose=True)
-
-def test_success_with_region(ngorkToken):
-    launch_ssh(ngorkToken, verbose=True, region="eu")
+def test_success_without_password():
+    launch_ssh_cloudflared(verbose=True)
 
