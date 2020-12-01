@@ -6,7 +6,7 @@ import os
 import time
 from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
-import importlib
+import importlib, sys
 
 
 def launch_ssh_cloudflared(
@@ -79,7 +79,7 @@ def launch_ssh_cloudflared(
             HostName %h
             User root
             Port 22
-            ProxyCommand &ltPUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE&gt access ssh --hostname %h
+            ProxyCommand <PUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE> access ssh --hostname %h
 
 *) Connect with SSH Terminal
     To connect using your terminal, type this command: 
