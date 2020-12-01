@@ -1,4 +1,7 @@
 <style>
+*{{
+	outline:none;
+}}
 code{{
 	display:inline-block;
 	padding:5px 10px;
@@ -38,18 +41,32 @@ p, li{{
 	font-weight:bold;
 	cursor:pointer;
 }}
+.pill{{
+	padding:2px 4px;
+	border-radius: 100px;
+	background-color:#e65858;
+	font-size:12px;
+	font-weight:bold;
+	margin: 0 15px;
+	color:white;
+}}
 </style>
-<h3>Almost there! <p style="font-weight:100; font-size:12px">(This is done only once)</p></h3>
-<ol>
-	<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path to the cloudflare binary</li>
-	<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config):</li>
-</ol>
-<code>Host *.trycloudflare.com
+<details class="choice-section">
+	<summary style="cursor:pointer">
+		<h3 style="display:inline-block;margin-top:15px">⚙️ Client machine configuration<span class="pill">Required</span></h3>
+	</summary>
+	<p>Don't worry, you only have to do this <b>once per client machine</b>.</p>
+	<ol>
+		<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path to the cloudflare binary</li>
+		<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config):</li>
+	</ol>
+	<code>Host *.trycloudflare.com
 	HostName %h
 	User root
 	Port 22
 	ProxyCommand &ltPUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE&gt access ssh --hostname %h
-</code>
+	</code>
+</details>
 <div class="choices">
 	<div class="choice-section">
 		<h4>SSH Terminal</h4>

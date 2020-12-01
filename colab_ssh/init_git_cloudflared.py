@@ -23,7 +23,7 @@ def parse_cloning_output(array):
   # Successfully cloned
   if len(array) == 1:
       folder_path = "./"+re.search("'(.*?)'", array[0]).groups(1)[0]
-      print('''Successfully cloned the repository in {}'''.format(folder_path))
+      #print('''Successfully cloned the repository in {}'''.format(folder_path))
       return add_folder_to_sys_path(folder_path)
 
   # Error occured in the cloning
@@ -91,8 +91,12 @@ def init_git_cloudflared(repositoryUrl,
     output = get_argo_tunnel_config()
     link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}{os.getcwd()}/{repo_name}"
     if importlib.util.find_spec("IPython") and 'ipykernel' in sys.modules:
-      render_template("init_git.html", {**output, "link":link, "repo_name":repo_name})
-#       from IPython.display import HTML, display
+      from IPython.display import HTML, display
+      display(HTML(
+        render_template("init_git.html", {**output, "link":link, "repo_name":repo_name})
+        )
+      )
+
 #       display(
 #         HTML(
 #           f"""[Optional] You can open the cloned folder using VSCode, by clicking 
