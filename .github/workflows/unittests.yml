@@ -22,6 +22,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
         
+        cat /usr/bin/add-apt-repository
+        ll /usr/bin/python
+        
         sudo apt-get update && sudo apt-get install python-apt
         sudo ln -s /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
           /usr/lib/python3/dist-packages/apt_pkg.so
