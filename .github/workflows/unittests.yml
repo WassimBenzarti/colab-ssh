@@ -19,7 +19,7 @@ jobs:
         python-version: '3.6'
     - name: Install dependencies
       run: |
-        sudo apt-get install --reinstall -y python3-apt
+        sudo apt-get install --reinstall -y python-apt
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
     - name: Run tests
