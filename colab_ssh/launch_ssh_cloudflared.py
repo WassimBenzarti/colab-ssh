@@ -9,7 +9,7 @@ from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
 import importlib, sys, signal
 
-deb_installer = create_deb_installer()
+deb_install = create_deb_installer()
 
 def launch_ssh_cloudflared(
                password="",
@@ -27,10 +27,11 @@ def launch_ssh_cloudflared(
             "wget -q -nc https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz")
         run_command("tar zxf cloudflared-stable-linux-amd64.tgz")
     else:
-        print("DEBUG: Skipping cloudflared installation")
+        if verbose:
+            print("DEBUG: Skipping cloudflared installation")
 
     # Install the openssh server
-    deb_installer("openssh-server")
+    deb_install("openssh-server",verbose=verbose)
     # os.system(
         # "apt-get -qq update && apt-get -qq install openssh-server > /dev/null")
 
@@ -53,7 +54,6 @@ def launch_ssh_cloudflared(
 
     os.system('service ssh start')
 
-
     extra_params = []
     info = None
     # Create tunnel and retry if failed
@@ -61,15 +61,14 @@ def launch_ssh_cloudflared(
         proc = Popen(shlex.split(
             f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
         ), stdout=PIPE)
-        if verbose:
-            print(f"Cloudflared process: PID={proc.pid}")
+        if verbose: print(f"Cloudflared process: PID={proc.pid}")
         time.sleep(3)
         try:
             info = get_argo_tunnel_config()
             break
         except:
             os.kill(proc.pid, signal.SIGKILL)
-            print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
+            if verbose: print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
             continue
 
     if verbose:
