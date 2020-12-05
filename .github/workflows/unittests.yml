@@ -19,8 +19,8 @@ jobs:
         python-version: '3.6'
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt -r requirements.dev.txt
+        sudo python -m pip install --upgrade pip
+        sudo pip install -r requirements.txt -r requirements.dev.txt
         
         sudo apt-get update && sudo apt-get install -y python-apt
     - name: Run tests
