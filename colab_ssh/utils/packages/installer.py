@@ -1,4 +1,5 @@
-import apt, os
+import apt
+import os
 
 def create_deb_installer():
 	os.system("apt-get -qq update")
