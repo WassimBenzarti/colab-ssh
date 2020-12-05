@@ -15,11 +15,11 @@ def launch_ssh_cloudflared(
                password="",
                verbose=False,
                kill_other_processes=False):
-
+    
     # Kill any cloudflared process if running
     if kill_other_processes:
         os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
-        time.sleep(4)
+    
 
     # Download cloudflared
     if not os.path.isfile("cloudflared"):
@@ -53,8 +53,8 @@ def launch_ssh_cloudflared(
 
     os.system('service ssh start')
 
-    extra_params = []
 
+    extra_params = []
     info = None
     # Create tunnel and retry if failed
     for i in range(10):
@@ -71,13 +71,6 @@ def launch_ssh_cloudflared(
             os.kill(proc.pid, signal.SIGKILL)
             print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
             continue
-    
-    # Get public address
-    try:
-        info = get_argo_tunnel_config()
-    except:
-        raise Exception(
-            "It looks like something went wrong, this might be a problem with cloudflared")
 
     if verbose:
         print("DEBUG:", info)

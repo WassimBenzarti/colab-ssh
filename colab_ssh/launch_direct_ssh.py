@@ -26,7 +26,7 @@ def launch_direct_ssh(username, ip_address, port,
       print("ERROR:",process.stderr) if process.stderr else ""
 
   # Kill all ssh intances including the server
-  run_command("pkill -f ssh")
+  # run_command("pkill -f ssh") # Unnecessary
 
   # Download autossh
   run_command("apt-get install -y autossh openssh-server")
@@ -38,7 +38,7 @@ def launch_direct_ssh(username, ip_address, port,
   run_command("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
 
   # Launch the SSH Server
-  run_command('mkdir -p /run/sshd && /usr/sbin/sshd')
+  run_command('mkdir -p /run/sshd && service ssh start')
 
   # Launch the connection
   # Prepare the ports
