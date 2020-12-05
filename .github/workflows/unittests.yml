@@ -19,14 +19,15 @@ jobs:
         python-version: '3.6'
     - name: Install dependencies
       run: |
-        sudo apt-get install python-apt software-properties-common
-        sudo ln -s /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
-          /usr/lib/python3/dist-packages/apt_pkg.so
+        # software-properties-common
+        #sudo ln -s /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
+        #  /usr/lib/python3/dist-packages/apt_pkg.so
           
-        ls /usr/lib/python3/dist-packages/apt*
+        #ls /usr/lib/python3/dist-packages/apt*
         
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
+        sudo apt-get install python-apt
     - name: Run tests
       run: python3 -m pytest
       env:
