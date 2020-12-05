@@ -11,6 +11,7 @@ def install_deb_package(package_name, verbose=False):
 
 	cache = apt.Cache()
 	if cache[package_name].is_installed:
-		print(f"DEBUG: Skipping installation of {package_name}, package already installed")
+    if verbose:
+      print(f"DEBUG: Skipping installation of {package_name}, package already installed")
 
 	os.system(f"apt-get -qq install {package_name} > /dev/null")
