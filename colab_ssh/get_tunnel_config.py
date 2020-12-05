@@ -17,20 +17,37 @@ def get_tunnel_config():
 
 def get_argo_tunnel_config():
 	hostname = None
-	for i in range(10):
-		output = requests.get("http://127.0.0.1:45678/metrics").text
-		result = re.search('cloudflared_tunnel_user_hostnames_counts{userHostname="https://(.+?)"}', output)
-		if result is None:
-			time.sleep(2)
-			continue
-		hostname = result.group(1)
-		break
-
+	output = requests.get("http://127.0.0.1:45678/metrics").text
+	result = re.search('cloudflared_tunnel_user_hostnames_counts{userHostname="https://(.+?)"}', output)
+	if result is None:
+		raise Exception("Cannot get any result from cloudflared metrics")
+	hostname = result.group(1)
 	if hostname is None:
 		raise Exception("Cannot get the hostname from cloudflared, it looks like the connection has failed.")
-
 	return {
 		"domain":hostname,
 		"protocol":"",
 		"port":22
 	}
+
+# def get_argo_tunnel_config():
+# 	hostname = None
+# 	for i in range(8):
+# 		output = requests.get("http://127.0.0.1:45678/metrics").text
+# 		result = re.search('cloudflared_tunnel_user_hostnames_counts{userHostname="https://(.+?)"}', output)
+# 		if result is None:
+# 			retry_after = 12/(1.5**i)
+# 			print(f"Waiting for cloudflare connection: Retrying after {retry_after:.2f}s", end="\r")
+# 			time.sleep(retry_after)
+# 			continue
+# 		hostname = result.group(1)
+# 		break
+
+# 	if hostname is None:
+# 		raise Exception("Cannot get the hostname from cloudflared, it looks like the connection has failed.")
+
+# 	return {
+# 		"domain":hostname,
+# 		"protocol":"",
+# 		"port":22
+# 	}

@@ -1,3 +1,4 @@
+from colab_ssh.utils.packages.installer import create_deb_installer
 from colab_ssh.utils.ui.render_html import render_template
 from subprocess import Popen, PIPE
 import shlex
@@ -6,26 +7,33 @@ import os
 import time
 from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
-import importlib, sys
+import importlib, sys, signal
 
+deb_install = create_deb_installer()
 
 def launch_ssh_cloudflared(
                password="",
                verbose=False,
                kill_other_processes=False):
-
+    
     # Kill any cloudflared process if running
     if kill_other_processes:
-        os.system("kill $(ps aux | grep 'cloudflared' | awk '{print $2}')")
+        os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
+    
 
     # Download cloudflared
-    run_command(
-        "wget -q -nc https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz")
-    run_command("tar zxf cloudflared-stable-linux-amd64.tgz")
+    if not os.path.isfile("cloudflared"):
+        run_command(
+            "wget -q -nc https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz")
+        run_command("tar zxf cloudflared-stable-linux-amd64.tgz")
+    else:
+        if verbose:
+            print("DEBUG: Skipping cloudflared installation")
 
     # Install the openssh server
-    os.system(
-        "apt-get -qq update && apt-get -qq install openssh-server > /dev/null")
+    deb_install("openssh-server",verbose=verbose)
+    # os.system(
+        # "apt-get -qq update && apt-get -qq install openssh-server > /dev/null")
 
     # Set the password
     run_with_pipe("echo root:{} | chpasswd".format(password))
@@ -44,22 +52,24 @@ def launch_ssh_cloudflared(
     expose_env_variable("TPU_NAME")
     expose_env_variable("XRT_TPU_CONFIG")
 
-    os.system('/usr/sbin/sshd -D &')
+    os.system('service ssh start')
 
     extra_params = []
-
-    # Create tunnel
-    proc = Popen(shlex.split(
-        f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
-    ), stdout=PIPE)
-
-    time.sleep(4)
-    # Get public address
-    try:
-        info = get_argo_tunnel_config()
-    except:
-        raise Exception(
-            "It looks like something went wrong, this might be a problem with cloudflared")
+    info = None
+    # Create tunnel and retry if failed
+    for i in range(10):
+        proc = Popen(shlex.split(
+            f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
+        ), stdout=PIPE)
+        if verbose: print(f"Cloudflared process: PID={proc.pid}")
+        time.sleep(3)
+        try:
+            info = get_argo_tunnel_config()
+            break
+        except:
+            os.kill(proc.pid, signal.SIGKILL)
+            if verbose: print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
+            continue
 
     if verbose:
         print("DEBUG:", info)
