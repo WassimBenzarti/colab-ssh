@@ -21,7 +21,7 @@ jobs:
       run: |
         sudo apt-get install --reinstall python3-apt
         ls /usr/lib/python3/dist-packages/apt*
-        cp /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
+        sudo cp /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
           /usr/lib/python3/dist-packages/apt_pkg.so
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
