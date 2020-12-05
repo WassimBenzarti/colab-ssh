@@ -22,7 +22,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
         
-        sudo d -i '1s/python3/python3\.6/g' /usr/bin/add-apt-repository
+        sudo sed -i '1s/python3/python3\.6/g' /usr/bin/add-apt-repository
         cat /usr/bin/add-apt-repository
         
         sudo apt-get update && sudo apt-get install python-apt
