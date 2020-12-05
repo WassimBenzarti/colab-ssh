@@ -19,10 +19,10 @@ jobs:
         python-version: '3.6'
     - name: Install dependencies
       run: |
-        sudo apt remove python3-apt
-        sudo apt autoremove
-        sudo apt autoclean
-        sudo apt install python3-apt
+        sudo apt-get install --reinstall python3-apt
+        ls /usr/lib/python3/dist-packages/apt*
+        cp /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
+          /usr/lib/python3/dist-packages/apt_pkg.so
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
     - name: Run tests
