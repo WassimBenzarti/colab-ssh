@@ -22,10 +22,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
         
-        sudo apt remove python3-apt
-        sudo apt autoremove
-        sudo apt autoclean
-        sudo apt install python3-apt
+        ls /opt/hostedtoolcache/Python/3.6.12/x64/lib/python3.6/importlib
     - name: Run tests
       run: python3 -m pytest
       env:
