@@ -19,9 +19,9 @@ jobs:
         python-version: '3.6'
     - name: Install dependencies
       run: |
-        sudo apt-get install --reinstall python3-apt
+        sudo apt-get install python3-apt software-properties-common
         sudo ln -s /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
-          /usr/lib/python3/dist-packages/apt.so
+          /usr/lib/python3/dist-packages/apt_pkg.so
           
         ls /usr/lib/python3/dist-packages/apt*
         
