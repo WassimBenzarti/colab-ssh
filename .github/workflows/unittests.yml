@@ -20,9 +20,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install --reinstall python3-apt
-        ls /usr/lib/python3/dist-packages/apt*
         sudo cp /usr/lib/python3/dist-packages/apt_pkg.cpython-36m-x86_64-linux-gnu.so \
-          /usr/lib/python3/dist-packages/apt_pkg.so
+          /usr/lib/python3/dist-packages/apt.so
+          
+        ls /usr/lib/python3/dist-packages/apt*
+        
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements.dev.txt
     - name: Run tests
