@@ -91,5 +91,11 @@ You need to follow these steps:
 ## API Reference
 Check the API reference on this [page](docs/api-reference.md).
 
+# Sponsor this project :)
+If you want to buy me a cup of coffee, feel free to reach me or use the following IBAN (International Bank Account Number):
+```
+TN5904018104003696876646
+```
+
 # Contribution
 Start by [opening an issue](https://github.com/WassimBenzarti/colab-ssh) so can start working together to enhance the experience of Google Colab users. We would love to hear your ideas!
