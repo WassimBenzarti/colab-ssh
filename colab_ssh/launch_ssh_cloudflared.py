@@ -7,19 +7,21 @@ import os
 import time
 from colab_ssh.get_tunnel_config import get_argo_tunnel_config
 from .utils.expose_env_variable import expose_env_variable
-import importlib, sys, signal
+import importlib
+import sys
+import signal
 
 deb_install = create_deb_installer()
 
+
 def launch_ssh_cloudflared(
-               password="",
-               verbose=False,
-               kill_other_processes=False):
-    
+        password="",
+        verbose=False,
+        kill_other_processes=False):
+
     # Kill any cloudflared process if running
     if kill_other_processes:
         os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
-    
 
     # Download cloudflared
     if not os.path.isfile("cloudflared"):
@@ -31,9 +33,7 @@ def launch_ssh_cloudflared(
             print("DEBUG: Skipping cloudflared installation")
 
     # Install the openssh server
-    deb_install("openssh-server",verbose=verbose)
-    # os.system(
-        # "apt-get -qq update && apt-get -qq install openssh-server > /dev/null")
+    deb_install("openssh-server", verbose=verbose)
 
     # Set the password
     run_with_pipe("echo root:{} | chpasswd".format(password))
@@ -61,14 +61,16 @@ def launch_ssh_cloudflared(
         proc = Popen(shlex.split(
             f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
         ), stdout=PIPE)
-        if verbose: print(f"Cloudflared process: PID={proc.pid}")
+        if verbose:
+            print(f"Cloudflared process: PID={proc.pid}")
         time.sleep(3)
         try:
             info = get_argo_tunnel_config()
             break
         except:
             os.kill(proc.pid, signal.SIGKILL)
-            if verbose: print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
+            if verbose:
+                print(f"DEBUG: Killing {proc.pid}. Retrying again ...")
             continue
 
     if verbose:
@@ -103,19 +105,19 @@ def launch_ssh_cloudflared(
     #     print("[Optional] You can also connect with VSCode SSH Remote extension by:")
     #     print(f"""
     # 1. Set the following configuration into your SSH config file (~/.ssh/config):
-        
+
     #     Host *.trycloudflare.com
     #         HostName %h
     #         User root
     #         Port {port}
     #         ProxyCommand <PUT_THE_ABSOLUTE_CLOUDFLARE_PATH_HERE> access ssh --hostname %h
-    
+
     # 2. Connect to Remote SSH on VSCode (Ctrl+Shift+P and type "Connect to Host...") and paste this hostname:
     #     {host}
     #     """)
     #     print(f'''
-	
-	#   ''')
+
+        #   ''')
     else:
         print(proc.stdout.readlines())
         raise Exception(
