@@ -26,11 +26,13 @@ Colab-ssh is a light-weight library that enables you to connect to a Google Cola
 !pip install colab_ssh --upgrade
 
 from colab_ssh import launch_ssh_cloudflared, init_git_cloudflared
-launch_ssh_cloudflared(password)
+launch_ssh_cloudflared(password="<PUT_YOUR_PASSWORD_HERE>")
 
 # Optional: if you want to clone a github repository
 init_git_cloudflared(githubRepositoryUrl)
 ```
+> Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice and `githubRepositoryUrl` with the link to your github repository (if you use `init_git_cloudflared` function).
+
 The output of this snippet will look similar to the following screenshot:
 ![launch_ssh_cloudflared output](docs/assets/launch_ssh_cloudflared.jpg)
 
