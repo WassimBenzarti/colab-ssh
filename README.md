@@ -32,6 +32,7 @@ launch_ssh_cloudflared(password="<PUT_YOUR_PASSWORD_HERE>")
 init_git_cloudflared(githubRepositoryUrl)
 ```
 > Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice.
+
 The output of this snippet will look similar to the following screenshot:
 ![launch_ssh_cloudflared output](docs/assets/launch_ssh_cloudflared.jpg)
 
