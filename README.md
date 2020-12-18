@@ -4,7 +4,7 @@
 >  - Argo Tunnel (also known as cloudflared)
 >  - VSCode direct link with which you can open your VSCode right from the notebook.
 
-# Colab-ssh
+# Colab-ssh Test
 #### Connect to Google colab via ssh easily
 
 [![Downloads](https://pepy.tech/badge/colab-ssh/week)](https://pepy.tech/project/colab-ssh/week)
