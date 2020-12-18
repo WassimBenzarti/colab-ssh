@@ -31,7 +31,7 @@ launch_ssh_cloudflared(password="<PUT_YOUR_PASSWORD_HERE>")
 # Optional: if you want to clone a github repository
 init_git_cloudflared(githubRepositoryUrl)
 ```
-> Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice.
+> Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice and `githubRepositoryUrl` with the link to your github repository (if you use `init_git_cloudflared` function).
 
 The output of this snippet will look similar to the following screenshot:
 ![launch_ssh_cloudflared output](docs/assets/launch_ssh_cloudflared.jpg)
