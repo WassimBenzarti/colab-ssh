@@ -15,10 +15,10 @@ deb_install = create_deb_installer()
 
 
 def launch_ssh_cloudflared(
-        password="",
-        verbose=False,
-        kill_other_processes=False):
-
+               password="",
+               verbose=False,
+               prevent_interrupt=False,
+               kill_other_processes=False):
     # Kill any cloudflared process if running
     if kill_other_processes:
         os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
@@ -58,11 +58,13 @@ def launch_ssh_cloudflared(
     info = None
     # Create tunnel and retry if failed
     for i in range(10):
-        proc = Popen(shlex.split(
-            f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
-        ), stdout=PIPE)
-        if verbose:
-            print(f"Cloudflared process: PID={proc.pid}")
+        popen_command = f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
+        preexec_fn = None
+        if prevent_interrupt: 
+            popen_command = 'nohup ' + popen_command
+            preexec_fn = os.setpgrp
+        proc = Popen(shlex.split(popen_command), stdout=PIPE, preexec_fn=preexec_fn)
+        if verbose: print(f"Cloudflared process: PID={proc.pid}")
         time.sleep(3)
         try:
             info = get_argo_tunnel_config()
