@@ -57,13 +57,17 @@ def launch_ssh_cloudflared(
     extra_params = []
     info = None
 
+    # Prepare the cloudflared command
     popen_command = f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
     preexec_fn = None
     if prevent_interrupt:
         popen_command = 'nohup ' + popen_command
         preexec_fn = os.setpgrp
     popen_command = shlex.split(popen_command)
+
+    # Initial sleep time
     sleep_time = 2.0
+
     # Create tunnel and retry if failed
     for i in range(10):
         proc = Popen(popen_command, stdout=PIPE, preexec_fn=preexec_fn)
@@ -76,7 +80,7 @@ def launch_ssh_cloudflared(
         except Exception as e:
             os.kill(proc.pid, signal.SIGKILL)
             if verbose:
-                print(f"DEBUG: {e.args[0]}")
+                print(f"DEBUG: Exception: {e.args[0]}")
                 print(f"DEBUG: Killing {proc.pid}. Retrying...")
         # Increase the sleep time and try again
         sleep_time *= 1.5
