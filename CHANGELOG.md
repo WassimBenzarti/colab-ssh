@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Improve verbose output and increasing sleep times (@bjourne)
 - When cloning private repositories, the message "Cloned the repo successfully" doesn't show up anymore.
 - Check if the repository is public, before cloning it.
 - Ask for password if the repository is private (in other words not found in the remote)
