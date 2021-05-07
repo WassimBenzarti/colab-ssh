@@ -28,10 +28,10 @@ Colab-ssh is a light-weight library that enables you to connect to a Google Cola
 from colab_ssh import launch_ssh_cloudflared, init_git_cloudflared
 launch_ssh_cloudflared(password="<PUT_YOUR_PASSWORD_HERE>")
 
-# Optional: if you want to clone a github repository
-init_git_cloudflared(githubRepositoryUrl)
+# Optional: if you want to clone a Github or Gitlab repository
+init_git_cloudflared(repository_url)
 ```
-> Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice and `githubRepositoryUrl` with the link to your github repository (if you use `init_git_cloudflared` function).
+> Make sure you replace `<PUT_YOUR_PASSWORD_HERE>` with a password of your choice and `repository_url` with the link to your Github/Gitlab repository (if you use `init_git_cloudflared` function).
 
 The output of this snippet will look similar to the following screenshot:
 ![launch_ssh_cloudflared output](docs/assets/launch_ssh_cloudflared.jpg)
@@ -42,7 +42,7 @@ The output of this snippet will look similar to the following screenshot:
 
 
 ### Cloning a repository (Optional)
-If you are a Github fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
+If you are a Github/Gitlab fan, you probably want to clone a repository (private or public) to the Google Colab Notebook.
 This is why `init_git` is created.
 
 ##### What `init_git` does:
@@ -69,6 +69,7 @@ This will display a button inside the cell output (or a url in case of a termina
 > - Make sure you have VSCode installed locally for the link to work
 > - Make sure that you run `launch_ssh_cloudflared` before `init_git_cloudflared`. The reason for that is because `init_git_cloudflared` shows the link based on the tunnel information provided by the function `launch_ssh_cloudflared`.
 
+Please note that your Gitlab personal access token requires the following scopes: `read_api, read_repository, write_repository`.
 
 ### Avoiding passwords (Optional)
 Instead of setting a password, you can access the SSH tunnel using your own pair of keys.
