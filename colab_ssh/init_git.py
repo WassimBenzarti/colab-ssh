@@ -37,6 +37,10 @@ def parse_cloning_output(array):
   git_logger.error(error)
   show_hint_message(error)
 
+
+repository_regex = re.compile(r"^https://(?P<service>gitlab|github)\.com/(?P<namespace>[^/]+)/(?P<project>[^/]+)\.git$", re.IGNORECASE)
+
+
 def init_git(repository_url: str,
             branch: Optional[str] = None,
             personal_token: Optional[str] = None,
@@ -46,7 +50,6 @@ def init_git(repository_url: str,
             verbose: bool = False) -> None:
   if branch is None:
     branch = ""
-  repository_regex = re.compile(r"^https://(?P<service>gitlab|github)\.com/(?P<namespace>[^/]+)/(?P<project>[^/]+)\.git$", re.IGNORECASE)
   repository_info = repository_regex.match(repository_url)
   if repository_info is None:
     raise ValueError("The repository URL must be from Github or Gitlab.")
@@ -78,18 +81,12 @@ def init_git(repository_url: str,
       from getpass import getpass
       password = quote(getpass('Enter your password: \n'))
       if password:
-        if repository_info["service"] == "github":
-          full_url = "https://{}:{}@github.com/{}/{}.git".format(
-            username, password,
-            repository_info["namespace"],
-            repository_info["project"],
-          )
-        elif repository_info["service"] == "gitlab":
-          full_url = "https://{}:{}@gitlab.com/{}/{}.git".format(
-            username, password,
-            repository_info["namespace"],
-            repository_info["project"],
-          )
+        full_url = "https://{}:{}@{}.com/{}/{}.git".format(
+          username, password,
+          repository_info["service"],
+          repository_info["namespace"],
+          repository_info["project"],
+        )
   # Clone the repository then add the folder to the sys.path
   _run_command(
       "git clone {} {}".format(
@@ -104,7 +101,7 @@ def init_git(repository_url: str,
 
   # Checkout the branch
   os.system(f'cd {repo_name}')
-  
+
   # Make sure that even if the repository is public, the personal token is still in the origin remote url
   if personal_token is not None:
     os.system("git remote set-url origin {}".format(full_url))
@@ -127,7 +124,7 @@ def init_git(repository_url: str,
     # https://docs.gitlab.com/ee/api/README.html#namespaced-path-encoding
     # https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository
     header = f"-H 'Authorization: Bearer {personal_token}'"
-    keys_url = "https://gitlab.com/api/v4/projects/{}%2F{}/repository/files/.colab_ssh/authorized_keys/raw?{}".format(
+    keys_url = "https://gitlab.com/api/v4/projects/{}%2F{}/repository/files/.colab_ssh%2Fauthorized_keys/raw?{}".format(
       repository_info["namespace"],
       repository_info["project"],
       f"ref={branch}" if branch else "",
