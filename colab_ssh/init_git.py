@@ -116,9 +116,9 @@ def init_git(repository_url: str,
   if repository_info["service"] == "github":
     header = f"-H 'Authorization: token {personal_token}'"
     keys_url = "https://raw.githubusercontent.com/{}/{}/{}/.colab_ssh/authorized_keys".format(
-      branch,
       repository_info["namespace"],
       repository_info["project"],
+      branch,
     )
   elif repository_info["service"] == "gitlab":
     # https://docs.gitlab.com/ee/api/README.html#namespaced-path-encoding
