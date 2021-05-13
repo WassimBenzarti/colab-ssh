@@ -106,6 +106,8 @@ def init_git(repository_url: str,
     if username is not None:
         os.system('git config --global user.name "{}"'.format(username))
 
+    provider.download_keys()
+
     # Bring the public key from the repository and paste it in the authorized_keys
     if repository_info["service"] == "github":
         header = f"-H 'Authorization: token {personal_token}'"
