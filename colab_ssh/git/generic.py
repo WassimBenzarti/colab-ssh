@@ -1,8 +1,8 @@
-
+import abc
 import requests
 
 
-class HTTPSGitProvider:
+class HTTPSGitProvider(metaclass=abc.ABCMeta):
 
     def __init__(self, domain):
         self.domain = domain
@@ -14,7 +14,8 @@ class HTTPSGitProvider:
             project,
         )
 
-    def get_url_with_pat(self, personal_token, namespace, project):
+    def get_url_with_pat(
+            self, personal_token, namespace, project):
         return "https://{}@{}/{}/{}.git".format(
             self.domain,
             personal_token,
@@ -22,7 +23,8 @@ class HTTPSGitProvider:
             project,
         )
 
-    def get_url_basic_auth(self, username, password, namespace, project):
+    def get_url_basic_auth(
+            self, username, password, namespace, project):
         return "https://{}:{}@{}/{}/{}.git".format(
             username, password,
             self.domain,
@@ -34,10 +36,7 @@ class HTTPSGitProvider:
         response = requests.get(url)
         return response.status_code == 200
 
+    @abc.abstractmethod
     def download_keys(personal_token, namespace, project, branch):
-        header = f"-H 'Authorization: token {personal_token}'"
-        keys_url = "https://raw.githubusercontent.com/{}/{}/{}/.colab_ssh/authorized_keys".format(
-            namespace,
-            project,
-            branch,
-        )
+        raise NotImplementedError(
+            "Please implement the method download_keys")

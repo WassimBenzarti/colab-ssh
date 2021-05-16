@@ -12,5 +12,12 @@
     "python.pythonPath": "/usr/bin/python3",
     "python.testing.pytestArgs": [
         "tests"
-    ]
+    ],
+    "python.formatting.autopep8Args": [
+      "--max-line-length", "66",
+      "--indent-size", "2",
+      "--experimental"
+    ],
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true
 }
