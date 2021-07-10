@@ -39,7 +39,7 @@ def parse_cloning_output(array):
 
 
 repository_regex = re.compile(
-    r"^https://(?P<provider>gitlab|github)\.com/(?P<namespace>[^/]+)/(?P<project>[^/]+)\.git$",
+    r"^https://(?P<provider>gitlab|github)\.com/(?P<namespace>[^/]+)/(?P<project>[^/]+?)(\.git)?$",
     re.IGNORECASE)
 
 

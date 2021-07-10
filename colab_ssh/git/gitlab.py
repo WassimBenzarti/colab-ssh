@@ -15,11 +15,12 @@ class HTTPSGitlabProvider(HTTPSGitProvider):
           self, personal_token, namespace, project, branch):
     # https://docs.gitlab.com/ee/api/README.html#namespaced-path-encoding
     # https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository
-    header = f"-H 'Authorization: Bearer {personal_token}'"
+    headers = {
+        "Authorization": "Bearer {personal_token}"} if personal_token else None
     keys_url = "https://gitlab.com/api/v4/projects/{}%2F{}/repository/files/.colab_ssh%2Fauthorized_keys/raw?{}".format(
         namespace, project, f"ref={branch}" if branch else "", )
 
-    requests.get(keys_url)
+    return requests.get(keys_url, headers=headers).text
 
 
 gitlab_provider = HTTPSGitlabProvider("gitlab.com")

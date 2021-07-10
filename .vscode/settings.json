@@ -19,5 +19,15 @@
       "--experimental"
     ],
     "editor.formatOnSave": true,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/*.pyc": {"when": "$(basename).py"}, 
+      "**/__pycache__": true,
+      "**/.pytest_cache": true
+    }
 }
