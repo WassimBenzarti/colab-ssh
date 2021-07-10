@@ -3,7 +3,8 @@ from colab_ssh.git.generic import HTTPSGitProvider
 
 
 class HTTPSGithubProvider(HTTPSGitProvider):
-  def download_keys(personal_token, namespace, project, branch):
+  def download_keys(
+          self, personal_token, namespace, project, branch):
     keys_url = "https://raw.githubusercontent.com/{}/{}/{}/.colab_ssh/authorized_keys".format(
         namespace, project, branch, )
     pub_ssh_keys = requests.get(keys_url, headers={

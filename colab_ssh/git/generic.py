@@ -37,6 +37,13 @@ class HTTPSGitProvider(metaclass=abc.ABCMeta):
     response = requests.get(url)
     return response.status_code == 200
 
+  '''
+  Takes the following arguments:
+    - personal_token: Personal access token
+    - namespace: The path to the project or organization
+    - project: Project name
+    - branch: Branch of the repository
+  '''
   @abc.abstractmethod
   def download_keys(
           self, personal_token, namespace, project, branch):
@@ -44,7 +51,7 @@ class HTTPSGitProvider(metaclass=abc.ABCMeta):
         "Please implement the method download_keys")
 
   def download_and_store_keys(
-          self, personal_token, namespace, project):
+          self, personal_token, namespace, project, branch):
     pub_ssh_keys = self.download_keys(
-        personal_token, namespace, project)
+        personal_token, namespace, project, branch)
     add_to_authorized_keys(pub_ssh_keys)

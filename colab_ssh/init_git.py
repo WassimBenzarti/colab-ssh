@@ -121,11 +121,11 @@ def init_git(
   )
 
   # Bring the public key from the repository and paste it in the authorized_keys
-  if repository_info["service"] == "github":
+  if repository_info["provider"] == "github":
     header = f"-H 'Authorization: token {personal_token}'"
     keys_url = "https://raw.githubusercontent.com/{}/{}/{}/.colab_ssh/authorized_keys".format(
         repository_info["namespace"], repository_info["project"], branch, )
-  elif repository_info["service"] == "gitlab":
+  elif repository_info["provider"] == "gitlab":
     # https://docs.gitlab.com/ee/api/README.html#namespaced-path-encoding
     # https://docs.gitlab.com/ee/api/repository_files.html#get-raw-file-from-repository
     header = f"-H 'Authorization: Bearer {personal_token}'"
