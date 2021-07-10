@@ -1,12 +1,12 @@
-from pytest import fixture
 from colab_ssh import launch_ssh
 import os
 import pytest
 from dotenv import load_dotenv
-load_dotenv(verbose=True)
 
-@fixture
+
+@pytest.fixture
 def ngorkToken():
+  load_dotenv(verbose=True)
   token = os.getenv("NGROK_TOKEN")
   if(not token):
     raise Exception(
@@ -14,7 +14,7 @@ def ngorkToken():
   yield token
 
 
-def test_token_is_wrong():
+def test_token_is_wrong(capsys, caplog):
   with pytest.raises(Exception) as e:
     launch_ssh(", ")
   exception = e.value
@@ -22,7 +22,7 @@ def test_token_is_wrong():
       exception) == "It looks like something went wrong, please make sure your token is valid"
 
 
-def test_token_missing():
+def test_token_missing(capsys, caplog):
   with pytest.raises(Exception) as e:
     launch_ssh("")
   exception = e.value
@@ -30,9 +30,9 @@ def test_token_missing():
       exception) == "Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth"
 
 
-def test_success(ngorkToken):
+def test_success(ngorkToken, capsys, caplog):
   launch_ssh(ngorkToken, verbose=True)
 
 
-def test_success_with_region(ngorkToken):
+def test_success_with_region(ngorkToken, capsys, caplog):
   launch_ssh(ngorkToken, verbose=True, region="eu")
