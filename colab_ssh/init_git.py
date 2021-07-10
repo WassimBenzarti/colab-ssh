@@ -10,8 +10,6 @@ from urllib.parse import quote
 from typing import Optional
 from functools import partial
 
-import requests
-
 from colab_ssh.utils.logger import get_logger
 from colab_ssh.utils.ui.render_html import render_template
 from colab_ssh._command import run_command as _run_command
@@ -98,6 +96,9 @@ def init_git(
 
   repo_name = repository_info["project"]
 
+  if not os.path.isdir(repo_name):
+    raise Exception(
+        "Cannot clone the project, the git clone command failed")
   # cd the directory of the project
   os.chdir(repo_name)
 
