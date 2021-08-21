@@ -18,8 +18,8 @@ class HTTPSGitProvider(metaclass=abc.ABCMeta):
   def get_url_with_pat(
           self, personal_token, namespace, project):
     return "https://{}@{}/{}/{}.git".format(
-        self.domain,
         personal_token,
+        self.domain,
         namespace,
         project,
     )
