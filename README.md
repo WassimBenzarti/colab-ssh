@@ -10,8 +10,8 @@
 # Colab-ssh
 Connect to Google colab via ssh easily
 
-[![Downloads](https://pepy.tech/badge/colab-ssh)](https://pepy.tech/project/colab-ssh/week)
-[![Downloads](https://pepy.tech/badge/colab-ssh)](https://pepy.tech/project/colab-ssh/month)
+[![Downloads](https://pepy.tech/badge/colab-ssh/week)](https://pepy.tech/project/colab-ssh)
+[![Downloads](https://pepy.tech/badge/colab-ssh/month)](https://pepy.tech/project/colab-ssh)
 [![Downloads](https://pepy.tech/badge/colab-ssh)](https://pepy.tech/project/colab-ssh)
 
 ## What is Colab-ssh ?
