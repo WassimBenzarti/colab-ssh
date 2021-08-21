@@ -31,7 +31,7 @@ def test_private_git_repo_wrong_credentials(capsys, caplog):
 		with mock.patch.object(getpass, 'getpass', lambda x: '123'):
 			init_git(private_repo)
 	
-	assert "Invalid username or password" in caplog.text
+	assert "Support for password authentication was removed on" in caplog.text
 	output = capsys.readouterr()
-	assert "Please check your username and password" in output.out
+	assert "Support for password authentication was removed from github" in output.out
  	
