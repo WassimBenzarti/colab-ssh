@@ -57,12 +57,8 @@ def private_git_repo_wrong_credentials(
       with mock.patch.object(getpass, 'getpass', lambda x: '123'):
         init_git_cloudflared(private_repo)
 
-  assert (
-      "Invalid username or password" in caplog.text
-      or "HTTP Basic: Access denied" in caplog.text
-  )
-  output = capsys.readouterr()
-  assert "Please check your username and password" in output.out
+  return caplog
+
   #assert "Support for password authentication was removed on" in caplog.text
   #output = capsys.readouterr()
   #assert "Support for password authentication was removed from github" in output.out
@@ -70,13 +66,22 @@ def private_git_repo_wrong_credentials(
 
 def test_private_git_repo_wrong_credentials_github(
         capsys, caplog):
-  private_git_repo_wrong_credentials(
+  log = private_git_repo_wrong_credentials(
       capsys, caplog,
       "https://github.com/WassimBenzarti/my-cv.git")
+  assert "Support for password authentication was removed on" in log.text
+  output = capsys.readouterr()
+  assert "Support for password authentication was removed from github" in output.out
 
 
 def test_private_git_repo_wrong_credentials_gitlab(
         capsys, caplog):
-  private_git_repo_wrong_credentials(
+  log = private_git_repo_wrong_credentials(
       capsys, caplog,
       "https://gitlab.com/ldgarciac/colab-ssh-test-private.git")
+  assert (
+      "Invalid username or password" in log.text
+      or "HTTP Basic: Access denied" in log.text
+  )
+  output = capsys.readouterr()
+  assert "Please check your username and password" in output.out
