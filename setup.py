@@ -1,11 +1,11 @@
 import setuptools
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+  long_description = fh.read()
 
 setuptools.setup(
     name="colab_ssh",
-    version="0.3.18",
+    version="0.3.19",
     author="Wassim Benzarti",
     author_email="m.wassim.benzarti@gmail.com",
     description="Google colab SSH connector",
