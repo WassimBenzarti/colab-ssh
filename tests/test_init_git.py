@@ -63,6 +63,9 @@ def private_git_repo_wrong_credentials(
   )
   output = capsys.readouterr()
   assert "Please check your username and password" in output.out
+  #assert "Support for password authentication was removed on" in caplog.text
+  #output = capsys.readouterr()
+  #assert "Support for password authentication was removed from github" in output.out
 
 
 def test_private_git_repo_wrong_credentials_github(

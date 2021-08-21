@@ -30,7 +30,8 @@ we highly recommend that update your code by following this documentation https:
         "Region is required. If you do want prefer the default value, don't set the 'region' parameter")
 
   # Kill any ngrok process if running
-  os.system("kill $(ps aux | grep 'ngrok' | awk '{print $2}')")
+  os.system(
+      "kill $(ps aux | grep '\\.\\/ngrok tcp' | awk '{print $2}')")
 
   # Download ngrok
   run_command(

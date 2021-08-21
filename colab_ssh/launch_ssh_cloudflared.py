@@ -57,6 +57,9 @@ def launch_ssh_cloudflared(
     extra_params = []
     info = None
 
+    # Clear the log file, this is required since we are getting the url
+    open('cloudflared.log', 'w').close()
+
     # Prepare the cloudflared command
     popen_command = f'./cloudflared tunnel --url ssh://localhost:22 --logfile ./cloudflared.log --metrics localhost:45678 {" ".join(extra_params)}'
     preexec_fn = None

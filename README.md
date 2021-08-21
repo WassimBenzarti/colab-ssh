@@ -38,7 +38,7 @@ The output of this snippet will look similar to the following screenshot:
 
 > :warning: If it's the first time you launch colab-ssh on your machine, it's important to follow the instructions in the **"Client machine configuration" section**. To show the steps that you need to do, **just click "Client machine configuration"**. Don't worry, you don't have to repeat these steps again for each notebook.
 
-> :grey_question: Looking for a way to connect using Ngrok ? Check the [colab-ssh ngrok documentation](docs/deprecated/ngrok.md)
+> :grey_question: Looking for a way to connect using Ngrok ? Check the [colab-ssh ngrok documentation](docs/ngrok/ngrok.md)
 
 
 ### Cloning a repository (Optional)

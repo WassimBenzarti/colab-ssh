@@ -1,3 +1,4 @@
 python-dotenv
 pytest
+pytest-timeout
 mock

@@ -52,6 +52,6 @@ def test_private_git_repo_wrong_credentials(
         init_git(private_repo)
   assert "Cannot clone the project, the git clone command failed" in str(
       clone_err)
-  assert "Invalid username or password" in caplog.text
+  assert "Support for password authentication was removed on" in caplog.text
   output = capsys.readouterr()
-  assert "Please check your username and password" in output.out
+  assert "Support for password authentication was removed from github" in output.out
