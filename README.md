@@ -18,7 +18,9 @@ Connect to Google colab via ssh easily
 Colab-ssh is a light-weight library that allows you to connect to Google Colab Notebook using an SSH Tunnel and optionally via VSCode.
 
 ## Quick start
-You can click on the Colab button to clone an already setup project: ![Colab getting started project]()
+You can click on the Google Colab button to clone an already setup notebook:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/WassimBenzarti/colab-ssh/blob/master/docs/Colab_ssh_Initial_project.ipynb)
 
 > :warning: Colab-ssh supports Google colaboratory notebooks only, using it on other notebooks may lead to unexpected behavior. 
 
