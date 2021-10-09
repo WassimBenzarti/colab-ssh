@@ -3,8 +3,8 @@
 > A new version of colab-ssh is coming soon, stay tuned.
 
 > 🎉 Happy to announce that we now support:
+>  - Youtube demo video
 >  - Gitlab repositories
->  - Argo Tunnel (also known as cloudflared)
 >  - VSCode direct link with which you can open your VSCode right from the notebook.
 
 # Colab-ssh
@@ -25,6 +25,9 @@ You can click on the Google Colab button to clone an already setup notebook:
 > :warning: Colab-ssh supports Google colaboratory notebooks only, using it on other notebooks may lead to unexpected behavior. 
 
 ## Getting started
+
+Now you can watch a demo video on how to setup Colab-ssh with cloudflared on Youtube. Click the video below to open it.
+[![Youtube demo of Colab-ssh](http://img.youtube.com/vi/Q78_MMaNe_U/0.jpg)](http://www.youtube.com/watch?v=Q78_MMaNe_U "Colab-ssh: open Google Colab with VSCode and SSH")
 
 1. Open Google Colab and run this code in one of the code cells
 ```jupyter
