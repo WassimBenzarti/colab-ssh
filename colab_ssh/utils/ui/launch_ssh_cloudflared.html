@@ -58,8 +58,8 @@ p, li{{
 	</summary>
 	<p>Don't worry, you only have to do this <b>once per client machine</b>.</p>
 	<ol>
-		<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path to the cloudflare binary</li>
-		<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config):</li>
+		<li>Download <a href="https://developers.cloudflare.com/argo-tunnel/getting-started/installation">Cloudflared (Argo Tunnel)</a>, then copy the absolute path of the cloudflare binary</li>
+		<li>Now, you have to append the following to your SSH config file (usually under ~/.ssh/config), and make sure you replace the placeholder with the path you copied in Step 1:</li>
 	</ol>
 	<code>Host *.trycloudflare.com
 	HostName %h
