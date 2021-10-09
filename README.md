@@ -27,6 +27,7 @@ You can click on the Google Colab button to clone an already setup notebook:
 ## Getting started
 
 Now you can watch a demo video on how to setup Colab-ssh with cloudflared on Youtube. Click the video below to open it.
+
 [![Youtube demo of Colab-ssh](http://img.youtube.com/vi/Q78_MMaNe_U/0.jpg)](http://www.youtube.com/watch?v=Q78_MMaNe_U "Colab-ssh: open Google Colab with VSCode and SSH")
 
 1. Open Google Colab and run this code in one of the code cells
