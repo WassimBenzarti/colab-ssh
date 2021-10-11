@@ -28,6 +28,7 @@ def launch_ssh_cloudflared(
         run_command(
             "wget -q -nc https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64")
         run_command("mv cloudflared-linux-amd64 cloudflared")
+        run_command("chmod +x cloudflared")
     else:
         if verbose:
             print("DEBUG: Skipping cloudflared installation")
