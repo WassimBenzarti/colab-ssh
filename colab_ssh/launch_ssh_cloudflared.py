@@ -26,8 +26,8 @@ def launch_ssh_cloudflared(
     # Download cloudflared
     if not os.path.isfile("cloudflared"):
         run_command(
-            "wget -q -nc https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz")
-        run_command("tar zxf cloudflared-stable-linux-amd64.tgz")
+            "wget -q -nc https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64")
+        run_command("mv cloudflared-linux-amd64 cloudflared")
     else:
         if verbose:
             print("DEBUG: Skipping cloudflared installation")
