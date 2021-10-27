@@ -15,9 +15,9 @@ def get_tunnel_config():
     "port":port
   }
 
-def get_argo_tunnel_config():
+def get_argo_tunnel_config(initial_path=""):
   hostname = None
-  with open("cloudflared.log", "r") as f:
+  with open(initial_path+"cloudflared.log", "r") as f:
     output = "".join(f.readlines())
   result = re.search(':\"\| *https://(.+?.trycloudflare.com) *\|\"}', output)
   # result = re.search('cloudflared_tunnel_user_hostnames_counts{userHostname="https://(.+?)"}', output)

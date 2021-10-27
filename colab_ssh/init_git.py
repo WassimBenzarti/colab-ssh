@@ -140,7 +140,7 @@ def init_git(
   # Print the VSCode direct link
   try:
     if cloudflared:
-      output = get_argo_tunnel_config()
+      output = get_argo_tunnel_config("../")
     else:
       output = get_tunnel_config()
     link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}{os.getcwd()}/{repo_name}"
