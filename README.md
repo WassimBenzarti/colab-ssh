@@ -2,10 +2,10 @@
 
 > A new version of colab-ssh is coming soon, stay tuned.
 
-> 🎉 Happy to announce that we now support:
+> 🎉 Happy to announce that we now have:
 >  - Youtube demo video
->  - Gitlab repositories
->  - VSCode direct link with which you can open your VSCode right from the notebook.
+>  - Support for Gitlab repositories
+>  - VSCode integration with which you can open your VSCode right from the notebook.
 
 # Colab-ssh
 Connect to Google colab via ssh easily
