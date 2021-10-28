@@ -136,11 +136,14 @@ def init_git(
     header = ""
   os.system(
       f"mkdir -p ~/.ssh && curl -s -L -f {header} {keys_url} >> ~/.ssh/authorized_keys")
-
+  
+  # Go back to the parent folder
+  os.chdir("../")
+  
   # Print the VSCode direct link
   try:
     if cloudflared:
-      output = get_argo_tunnel_config("../")
+      output = get_argo_tunnel_config()
     else:
       output = get_tunnel_config()
     link = f"vscode://vscode-remote/ssh-remote+root@{output['domain']}:{output['port']}{os.getcwd()}/{repo_name}"

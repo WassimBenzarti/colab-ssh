@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="colab_ssh",
-    version="0.3.25",
+    version="0.3.26",
     author="Wassim Benzarti",
     author_email="m.wassim.benzarti@gmail.com",
     description="Google colab SSH connector",
