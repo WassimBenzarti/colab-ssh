@@ -18,7 +18,7 @@ def launch_ssh_cloudflared(
                password="",
                verbose=False,
                prevent_interrupt=False,
-               kill_other_processes=False):
+               kill_other_processes=True):
     # Kill any cloudflared process if running
     if kill_other_processes:
         os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
