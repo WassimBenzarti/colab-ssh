@@ -43,6 +43,8 @@ body:
         - label: latest
   - type: input
     id: version
+    attributes: 
+       label: Which version (if not the latest)?
     validations:
       required: false
   - type: textarea
