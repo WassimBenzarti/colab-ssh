@@ -1,0 +1,43 @@
+name: Feature request
+description: Create a feature request to improve Colab-SSH
+title: '[Feature]: '
+assignees:
+  - enhancement
+  - tirage
+labels:
+  - enhancement
+  - tirage
+body:
+  - type: textarea
+    id: source-problem
+    attributes:
+      label: Source problem
+      description: >-
+        Is your feature request related to a problem? Clear and concise
+        description of what the problem
+      placeholder: I'm always frustrated when ...
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature you like
+      description: A clear and concise description of what you want to happen.
+      placeholder: I want that ...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: >-
+        A clear and concise description of any alternative solutions or features
+        you've considered.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://www.issue-forms-creator.app/)
