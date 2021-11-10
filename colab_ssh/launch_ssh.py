@@ -89,12 +89,7 @@ we highly recommend that update your code by following this documentation https:
     port = info["port"]
     print("Successfully running", "{}:{}".format(host, port))
     print("[Optional] You can also connect with VSCode SSH Remote extension using this configuration:")
-    print(f'''
-  Host google_colab_ssh
-    HostName {host}
-    User root
-    Port {port}
-    ''')
+    print(f'{"host": {host}, "user": "root", "port": {port} }')
   else:
     print(proc.stdout.readlines())
     raise Exception(
