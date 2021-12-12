@@ -94,7 +94,7 @@ You need to follow these steps:
 1. Create a pair of SSH key
 2. Copy your **public key** (usually it's in the file `~/.ssh/id_rsa.pub`) and make sure you keep your **private key** in a safe place
 3. In the root of your github repository, create a folder called `.colab_ssh` and a file within it called `authorized_keys`
-4. Paste your **public key** inside the file `.collab_ssh/authorized_keys`
+4. Paste your **public key** inside the file `.colab_ssh/authorized_keys`
 5. Push your changes to the repository and launch the clone again from your Google Colab Notebook
 
 <details><summary><b>How it works behind the scenes ?</b></summary> 
