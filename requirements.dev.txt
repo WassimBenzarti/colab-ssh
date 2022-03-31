@@ -1,5 +1,4 @@
 python-dotenv
 pytest
 pytest-timeout
-mock
 autopep8

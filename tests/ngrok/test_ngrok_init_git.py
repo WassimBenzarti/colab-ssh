@@ -6,7 +6,6 @@ import logging
 from colab_ssh import launch_ssh
 import os
 from colab_ssh import init_git
-import mock
 
 
 @pytest.fixture
@@ -31,9 +30,7 @@ def test_private_git_repo_no_credentials(
   caplog.set_level(logging.ERROR, logger="git")
   private_repo = "https://github.com/WassimBenzarti/my-cv.git"
   with pytest.raises(Exception) as clone_err:
-    with mock.patch.object(builtins, 'input', lambda x: "\n"):
-      with mock.patch.object(getpass, 'getpass', lambda x: ''):
-        init_git(private_repo, verbose=True)
+    init_git(private_repo, verbose=True)
 
   assert "Cannot clone the project, the git clone command failed" in str(
       clone_err)
@@ -47,9 +44,7 @@ def test_private_git_repo_wrong_credentials(
   caplog.set_level(logging.ERROR, logger="git")
   private_repo = "https://github.com/WassimBenzarti/my-cv.git"
   with pytest.raises(Exception) as clone_err:
-    with mock.patch.object(builtins, 'input', lambda x: 'hello'):
-      with mock.patch.object(getpass, 'getpass', lambda x: '123'):
-        init_git(private_repo)
+    init_git(private_repo)
   assert "Cannot clone the project, the git clone command failed" in str(
       clone_err)
   assert "Support for password authentication was removed on" in caplog.text

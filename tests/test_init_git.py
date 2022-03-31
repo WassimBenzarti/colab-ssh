@@ -3,8 +3,6 @@ import builtins
 import getpass
 import logging
 import os
-import mock
-
 from colab_ssh import launch_ssh
 from colab_ssh import init_git_cloudflared
 
@@ -25,12 +23,14 @@ def test_public_repo_gitlab():
   )
 
 
-def private_git_repo_no_credentials(capsys, caplog, private_repo):
+def private_git_repo_no_credentials(
+        mocker, capsys, caplog, private_repo):
   caplog.set_level(logging.ERROR, logger="git")
+  mocker.patch(
+      "colab_ssh.utils.auth.ask_user_pass.ask_user_pass",
+      return_value=("", ""))
   with pytest.raises(Exception) as clone_err:
-    with mock.patch.object(builtins, 'input', lambda x: "\n"):
-      with mock.patch.object(getpass, 'getpass', lambda x: ''):
-        init_git_cloudflared(private_repo)
+    init_git_cloudflared(private_repo)
 
   assert "No such device or address" in caplog.text
   output = capsys.readouterr()
@@ -53,9 +53,7 @@ def private_git_repo_wrong_credentials(
         capsys, caplog, private_repo):
   caplog.set_level(logging.ERROR, logger="git")
   with pytest.raises(Exception):
-    with mock.patch.object(builtins, 'input', lambda x: 'hello'):
-      with mock.patch.object(getpass, 'getpass', lambda x: '123'):
-        init_git_cloudflared(private_repo)
+    init_git_cloudflared(private_repo)
 
   return caplog
 
