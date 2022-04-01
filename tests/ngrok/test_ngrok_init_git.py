@@ -1,14 +1,11 @@
 import shutil
 import pytest
-import builtins
-import getpass
 import logging
-from colab_ssh import launch_ssh
-import os
 from colab_ssh import init_git
+import os
 
 
-@pytest.fixture
+@pytest.fixture()
 def temporary_clone():
   os.chdir("/tmp")
   yield "/tmp/colab-ssh"
@@ -29,6 +26,9 @@ def test_private_git_repo_no_credentials(
         capsys, caplog, temporary_clone):
   caplog.set_level(logging.ERROR, logger="git")
   private_repo = "https://github.com/WassimBenzarti/my-cv.git"
+  pytest..patch(
+      "colab_ssh.init_git.ask_user_pass",
+      return_value=("", ""))
   with pytest.raises(Exception) as clone_err:
     init_git(private_repo, verbose=True)
 

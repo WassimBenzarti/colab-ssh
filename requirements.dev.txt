@@ -1,4 +1,6 @@
 python-dotenv
 pytest
 pytest-timeout
+pytest-mock
 autopep8
+paramiko

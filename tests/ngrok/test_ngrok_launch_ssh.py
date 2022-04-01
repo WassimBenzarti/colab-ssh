@@ -1,4 +1,4 @@
-from colab_ssh import launch_ssh
+from colab_ssh import launch_ssh, get_tunnel_config
 import os
 import pytest
 from dotenv import load_dotenv
@@ -13,10 +13,12 @@ def ngorkToken():
         "Missing NGROK_TOKEN in the environment, you add it to a .env file in the root folder.")
   yield token
 
+
 @pytest.fixture
 def clean_ngrok_tunnel():
-    yield
-    os.system("kill $(ps aux | grep '\\.\\/ngrok tcp' | awk '{print $2}')")
+  yield
+  os.system(
+      "kill $(ps aux | grep '\\.\\/ngrok tcp' | awk '{print $2}')")
 
 
 def test_token_is_wrong(capsys, caplog):
@@ -35,9 +37,14 @@ def test_token_missing(capsys, caplog):
       exception) == "Ngrok AuthToken is missing, copy it from https://dashboard.ngrok.com/auth"
 
 
-def test_success(ngorkToken, capsys, caplog, clean_ngrok_tunnel):
-  launch_ssh(ngorkToken, verbose=True)
+def test_success(ngorkToken, capsys, caplog, clean_ngrok_tunnel,
+                 ssh_check):
+  info = launch_ssh(ngorkToken, verbose=True, return_info=True)
+  ssh_check(info["domain"], info["port"])
 
 
-def test_success_with_region(ngorkToken, capsys, caplog, clean_ngrok_tunnel):
-  launch_ssh(ngorkToken, verbose=True, region="eu")
+def test_success_with_region(
+        ngorkToken, capsys, caplog, clean_ngrok_tunnel, ssh_check):
+  info = launch_ssh(ngorkToken, verbose=True,
+                    region="eu", return_info=True)
+  ssh_check(info["domain"], info["port"])

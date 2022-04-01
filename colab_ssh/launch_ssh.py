@@ -14,7 +14,8 @@ def launch_ssh(token,
                publish=True,
                verbose=False,
                region="us",
-               remote_addr=None):
+               remote_addr=None,
+               return_info=False):
 
   # Deprecation Warning
   print("""Warning: Due to some issues with ngrok on Google Colab, reported in the issue https://github.com/WassimBenzarti/colab-ssh/issues/45, 
@@ -100,3 +101,5 @@ we highly recommend that update your code by following this documentation https:
     raise Exception(
         "It looks like something went wrong, please make sure your token is valid")
   proc.stdout.close()
+  if return_info:
+    return info
