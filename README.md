@@ -21,7 +21,7 @@ Colab-ssh is a light-weight library that allows you to connect to a remote Jupyt
 
 > :warning: Unfortunately, Google Colab recently prohibited the usage of SSH on their platform. Using this library may restrict your ability to use Colab in the future. Learn more in [Google Colab FAQ](https://research.google.com/colaboratory/faq.html#limitations-and-restrictions).
 
-We believe that the project will always be maintained even without Google Colab support. This was built to help data scientists benefit from Jupyter notebook platforms and use their local tools that they always loved.
+We believe that the colab-ssh will always be maintained even without Google Colab support. This project was built to help data scientists benefit from Jupyter notebook platforms and use their local tools that they always loved.
 
 Support will come shortly for other platforms, for now this is the status:
 | Platform | Compatibility |
