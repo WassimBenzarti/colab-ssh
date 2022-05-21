@@ -8,21 +8,36 @@
 >  - VSCode integration with which you can open your VSCode right from the notebook.
 
 # Colab-ssh
-Connect to Google colab via ssh easily
+Connect to remote notebook via ssh easily
 
 [![Downloads](https://pepy.tech/badge/colab-ssh/week)](https://pepy.tech/project/colab-ssh)
 [![Downloads](https://pepy.tech/badge/colab-ssh/month)](https://pepy.tech/project/colab-ssh)
 [![Downloads](https://pepy.tech/badge/colab-ssh)](https://pepy.tech/project/colab-ssh)
 
 ## What is Colab-ssh ?
-Colab-ssh is a light-weight library that allows you to connect to Google Colab Notebook using an SSH Tunnel and optionally via VSCode.
+Colab-ssh is a light-weight library that allows you to connect to a remote Jupyter Notebook using an SSH Tunnel and optionally via VSCode.
 
-## Quick start
-You can click on the Google Colab button to clone an already setup notebook:
+## Notice
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/WassimBenzarti/colab-ssh/blob/master/docs/Colab_ssh_Initial_project.ipynb)
+> :warning: Unfortunately, Google Colab recently prohibited the usage of SSH on their platform. Using this library may restrict your ability to use Colab in the future. Learn more in [Google Colab FAQ](https://research.google.com/colaboratory/faq.html#limitations-and-restrictions).
 
-> :warning: Colab-ssh supports Google colaboratory notebooks only, using it on other notebooks may lead to unexpected behavior. 
+We believe that the project will always be maintained even without Google Colab support. This was built to help data scientists benefit from Jupyter notebook platforms and use their local tools that they always loved.
+
+Support will come shortly for other platforms, for now this is the status:
+| Platform | Compatibility |
+|-|-|
+| Deepnote | Coming soon* |
+| Paperspace Gradient | Official support coming soon** |
+| Kaggle | Coming soon* |
+| Google Colab | Recently prohibited by Google Colab |
+
+<sup>
+
+\* We currently having issues installing the `apt` package on the platform. We are currently working on workarounds. Feel free to debug it yourself and contribute to this project if you find a way to make it work.
+
+\** Although we didn't officially support Paperspace Gradient, it was tested few months ago and it works, feel free to check if it works and post any issues in this Github repository.
+
+</sup>
 
 ## Getting started
 
