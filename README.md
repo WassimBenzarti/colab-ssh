@@ -32,11 +32,11 @@ Support will come shortly for other platforms, for now this is the status:
 | Google Colab | Recently prohibited by Google Colab |
 
 <sup>
-
-\* We currently having issues installing the `apt` package on the platform. We are currently working on workarounds. Feel free to debug it yourself and contribute to this project if you find a way to make it work.
-
-\** Although we didn't officially support Paperspace Gradient, it was tested few months ago and it works, feel free to check if it works and post any issues in this Github repository.
-
+* We currently having issues installing the `apt` package on the platform. We are currently working on workarounds. Feel free to debug it yourself and contribute to this project if you find a way to make it work.
+</sup>
+<br/>
+<sup>               
+** Although we didn't officially support Paperspace Gradient, it was tested few months ago and it works, feel free to check if it works and post any issues in this Github repository.
 </sup>
 
 ## Getting started
