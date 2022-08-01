@@ -53,7 +53,7 @@ def launch_ssh_cloudflared(
     expose_env_variable("TPU_NAME")
     expose_env_variable("XRT_TPU_CONFIG")
 
-    os.system('service ssh start')
+    os.system('service ssh restart')
 
     extra_params = []
     info = None
