@@ -9,6 +9,7 @@ import re
 from urllib.parse import quote
 from typing import Optional
 from functools import partial
+import subprocess
 
 from colab_ssh.utils.logger import get_logger
 from colab_ssh.utils.ui.render_html import render_template
@@ -114,11 +115,16 @@ def init_git(
     os.system(
         'git config --global user.name "{}"'.format(username))
 
+  # If the branch is not specified, we will try to get the default branch of the repository by running shell command
+
+  if not branch:
+    default_branch = subprocess.getoutput("git symbolic-ref refs/remotes/origin/HEAD").split("/")[-1]
+ 
   provider.download_and_store_keys(
       personal_token,
       repository_info["namespace"],
       repository_info["project"],
-      branch,
+      branch if branch else default_branch,
   )
 
   # Bring the public key from the repository and paste it in the authorized_keys
