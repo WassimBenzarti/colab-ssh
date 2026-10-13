@@ -1,9 +1,13 @@
-from subprocess import Popen, PIPE
+import subprocess
 import shlex
+import os
+import signal
 
 
 def run_command(command, callback=None):
-  with Popen(shlex.split(command), stdout=PIPE, stderr=PIPE, universal_newlines=True) as process:
+  """Run a command and stream stdout. Returns the exit code."""
+  with subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                        universal_newlines=True) as process:
     while True:
       output = process.stdout.readline()
       if output == '' and process.poll() is not None:
@@ -11,24 +15,28 @@ def run_command(command, callback=None):
       if output:
         print(output.strip())
     rc = process.poll()
-    if rc is None:
-      process.kill()
     if callback:
       error_output = process.stderr.readlines()
       callback(error_output)
-
     process.stdout.close()
     process.stderr.close()
-    process.terminate()
   return rc
+
+
+def stop_process_group(pid):
+  """Terminate a process group and its children with SIGTERM."""
+  try:
+    os.killpg(pid, signal.SIGTERM)
+  except (ProcessLookupError, OSError):
+    pass
 
 
 def run_with_pipe(command):
   commands = list(map(shlex.split, command.split("|")))
-  ps = Popen(commands[0], stdout=PIPE, stderr=PIPE)
+  ps = subprocess.Popen(commands[0], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   for command in commands[1:]:
-    ps_new = Popen(command, stdin=ps.stdout,
-                   stdout=PIPE, stderr=PIPE)
+    ps_new = subprocess.Popen(command, stdin=ps.stdout,
+                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     ps.stdout.close()
     ps.stderr.close()
     ps.wait()

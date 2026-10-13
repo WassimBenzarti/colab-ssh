@@ -21,7 +21,7 @@ def launch_ssh_cloudflared(
                kill_other_processes=True):
     # Kill any cloudflared process if running
     if kill_other_processes:
-        os.system("kill -9 $(ps aux | grep 'cloudflared' | awk '{print $2}')")
+        run_command("pkill -9 -f cloudflared 2>/dev/null || true")
 
     # Download cloudflared
     if not os.path.isfile("cloudflared"):
@@ -41,9 +41,9 @@ def launch_ssh_cloudflared(
 
     # Configure the openSSH server
     run_command("mkdir -p /var/run/sshd")
-    os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
+    run_command("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
     if password:
-        os.system('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
+        run_command('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
 
     expose_env_variable("LD_LIBRARY_PATH")
     expose_env_variable("COLAB_TPU_ADDR")
@@ -53,7 +53,7 @@ def launch_ssh_cloudflared(
     expose_env_variable("TPU_NAME")
     expose_env_variable("XRT_TPU_CONFIG")
 
-    os.system('service ssh start')
+    run_command('service ssh start')
 
     extra_params = []
     info = None

@@ -30,8 +30,7 @@ we highly recommend that update your code by following this documentation https:
         "Region is required. If you do want prefer the default value, don't set the 'region' parameter")
 
   # Kill any ngrok process if running
-  os.system(
-      "kill $(ps aux | grep '\\.\\/ngrok tcp' | awk '{print $2}')")
+  run_command("kill $(ps aux | grep '\\.\\/ngrok tcp' | awk '{print $2}')")
 
   # Download ngrok
   run_command(
@@ -39,18 +38,16 @@ we highly recommend that update your code by following this documentation https:
   run_command("unzip -qq -n ngrok-stable-linux-amd64.zip")
 
   # Install the openssh server
-  os.system(
-      "apt-get -qq update && apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null")
+  run_command("apt-get -qq update && apt-get -qq install -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null")
 
   # Set the password
   run_with_pipe("echo root:{} | chpasswd".format(password))
 
   # Configure the openSSH server
   run_command("mkdir -p /var/run/sshd")
-  os.system("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
+  run_command("echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config")
   if password:
-    os.system(
-        'echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
+    run_command('echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config')
 
   expose_env_variable("LD_LIBRARY_PATH")
   expose_env_variable("COLAB_TPU_ADDR")
@@ -60,7 +57,7 @@ we highly recommend that update your code by following this documentation https:
   expose_env_variable("TPU_NAME")
   expose_env_variable("XRT_TPU_CONFIG")
 
-  os.system('/usr/sbin/sshd -D &')
+  run_command('/usr/sbin/sshd -D &')
 
   extra_params = []
   if(remote_addr):
